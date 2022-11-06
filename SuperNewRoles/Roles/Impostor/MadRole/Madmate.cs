@@ -4,7 +4,7 @@ using static SuperNewRoles.Helpers.RPCHelper;
 
 namespace SuperNewRoles.Roles
 {
-    class Madmate
+    partial class Madmate
     {
         public static List<byte> CheckedImpostor;
         public static bool CheckImpostor(PlayerControl p)

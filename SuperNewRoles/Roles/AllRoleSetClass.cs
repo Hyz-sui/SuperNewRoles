@@ -137,6 +137,8 @@ namespace SuperNewRoles
                 {
                     SuperNewRolesPlugin.Logger.LogInfo("RoleSelectError:" + e);
                 }
+                try { AllRoleSetClass.MadmateRandomSelect(); }
+                catch (Exception e) { Logger.Error($"マッドメイトのセレクトでエラーが発生しました。{e}", "SHR RoleSelectError"); }
                 FixedUpdate.SetRoleNames();
                 return false;
             }
@@ -270,8 +272,52 @@ namespace SuperNewRoles
                 {
                     SuperNewRolesPlugin.Logger.LogInfo("RoleSelectError:" + e);
                 }
+                try { MadmateRandomSelect(); }
+                catch (Exception e) { Logger.Error($"マッドメイトのセレクトでエラーが発生しました。{e}", "RoleSelectError"); }
             }
         }
+
+        public static void MadmateRandomSelect()
+        {
+            if (!Madmate.Option.GetBool() || (Madmate.Par.GetString() == "0%")) return;
+            Logger.Info("マッドメイトランダムセレクト");
+            if (Madmate.Par.GetString() != "100%")
+            {
+                List<string> list = new();
+                // "90%"ならば"9"に置き換え
+                var sucPar = int.Parse(Madmate.Par.GetString().Replace("0%", ""));
+                for (int i = 0; i < sucPar; i++)
+                    list.Add("Suc");
+
+                for (int i = 0; i < 10 - sucPar; i++)
+                    list.Add("No");
+
+                // ランダムでNoならばこれ以下を処理しない
+                if (ModHelpers.GetRandom(list) == "No")
+                    return;
+            }
+            List<PlayerControl> selectPlayers = new();
+
+            foreach (PlayerControl p in CachedPlayer.AllPlayers)
+                if (!p.IsBot()) // Botを除外する
+                    selectPlayers.Add(p);
+
+            // Madmateの人数回ループ
+            for (int i = 0; i < Madmate.Count.GetFloat(); i++)
+            {
+                PlayerControl playerData = null;
+                for (int j = 0; j < 2; j++)
+                {
+                    var rand = RoleClass.rnd.Next(0, selectPlayers.Count );
+                    playerData = selectPlayers[rand];
+                    selectPlayers.RemoveAt(rand);
+                }
+                RoleHelpers.SetMadmate(playerData);
+                RoleHelpers.SetMadmateRPC(playerData);
+            }
+            ChacheManager.ResetMadmateChache();
+        }
+
         public static void QuarreledRandomSelect()
         {
             if (!CustomOptionHolder.QuarreledOption.GetBool()) return;

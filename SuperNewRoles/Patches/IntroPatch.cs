@@ -41,7 +41,7 @@ namespace SuperNewRoles.Patches
                 Logger.Info("=================Role Data=================", "Player Info");
                 foreach (PlayerControl p in CachedPlayer.AllPlayers)
                 {
-                    Logger.Info($"{p.name}=>{p.GetRole()}({p.GetRoleType()}){(p.IsLovers() ? "[♥]" : "")}{(p.IsQuarreled() ? "[○]" : "")}", "Role Data");
+                    Logger.Info($"{p.name}=>{p.GetRole()}({p.GetRoleType()}){(p.IsLovers() ? "[♥]" : "")}{(p.IsQuarreled() ? "[○]" : "")}{(p.IsMadmate() ? "[mad]" : "")}", "Role Data");
                 }
                 Logger.Info("=================Other Data=================", "Intro Begin");
                 Logger.Info($"MapId:{PlayerControl.GameOptions.MapId} MapNames:{(MapNames)PlayerControl.GameOptions.MapId}", "Other Data");
@@ -320,6 +320,10 @@ namespace SuperNewRoles.Patches
                     {
                         ImpostorText += "\n" + ModHelpers.Cs(RoleClass.Quarreled.color, string.Format(ModTranslation.GetString("QuarreledIntro"), PlayerControl.LocalPlayer.GetOneSideQuarreled()?.Data?.PlayerName ?? ""));
                     }
+                    if (PlayerControl.LocalPlayer.IsMadmate())
+                    {
+                        ImpostorText += $"\n {ModHelpers.Cs(Madmate.color, ModTranslation.GetString("MadmateIntro"))}";
+                    }
                 }
                 __instance.ImpostorText.gameObject.SetActive(true);
                 if (ImpostorText.Length >= 10)
@@ -424,6 +428,10 @@ namespace SuperNewRoles.Patches
                         if (PlayerControl.LocalPlayer.IsQuarreled())
                         {
                             __instance.RoleBlurbText.text += "\n" + ModHelpers.Cs(RoleClass.Quarreled.color, string.Format(ModTranslation.GetString("QuarreledIntro"), PlayerControl.LocalPlayer.GetOneSideQuarreled()?.Data?.PlayerName ?? ""));
+                        }
+                        if (PlayerControl.LocalPlayer.IsMadmate())
+                        {
+                            __instance.RoleBlurbText.text += $"\n {ModHelpers.Cs(Madmate.color, ModTranslation.GetString("MadmateIntro"))}";
                         }
                     }
                     else if (ModeHandler.IsMode(ModeId.SuperHostRoles))

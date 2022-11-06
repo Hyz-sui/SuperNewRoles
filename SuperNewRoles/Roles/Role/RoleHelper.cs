@@ -103,6 +103,13 @@ namespace SuperNewRoles
             }
             return false;
         }
+        public static bool IsMadmate(this PlayerControl player)
+        {
+            if (player.IsBot()) return false;
+            if (Madmate.Player.Contains(player)) return true;
+
+            return false;
+        }
         public static void SetQuarreled(PlayerControl player1, PlayerControl player2)
         {
             List<PlayerControl> sets = new() { player1, player2 };
@@ -132,6 +139,17 @@ namespace SuperNewRoles
             Writer.Write(player1.PlayerId);
             Writer.Write(player2.PlayerId);
             AmongUsClient.Instance.FinishRpcImmediately(Writer);
+        }
+
+        public static void SetMadmate(PlayerControl player)
+        {
+            Madmate.Player.Add(player);
+        }
+        public static void SetMadmateRPC(PlayerControl player)
+        {
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMadmate, SendOption.Reliable, -1);
+            writer.Write(player.PlayerId);
+            AmongUsClient.Instance.FinishRpcImmediately(writer);
         }
         public static void RemoveQuarreled(this PlayerControl player)
         {
@@ -1129,7 +1147,7 @@ namespace SuperNewRoles
                 case RoleId.Dependents:
                     RoleClass.Dependents.DependentsPlayer.RemoveAll(ClearRemove);
                     break;
-                //ロールリモベ
+                    //ロールリモベ
             }
             ChacheManager.ResetMyRoleChache();
         }
@@ -1192,8 +1210,8 @@ namespace SuperNewRoles
                 case RoleId.Pavlovsowner:
                 case RoleId.GM:
                 case RoleId.WaveCannonJackal:
-                    case RoleId.Cupid:
-                //タスククリアか
+                case RoleId.Cupid:
+                    //タスククリアか
                     IsTaskClear = true;
                     break;
                 case RoleId.Sheriff when RoleClass.Chief.NoTaskSheriffPlayer.Contains(player.PlayerId):

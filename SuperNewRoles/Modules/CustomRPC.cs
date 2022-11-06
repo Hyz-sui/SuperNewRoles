@@ -259,6 +259,7 @@ namespace SuperNewRoles.Modules
         SetMapId,
         PenguinHikizuri,
         SetVampireStatus,
+        SetMadmate
     }
 
     public static class RPCProcedure
@@ -786,6 +787,9 @@ namespace SuperNewRoles.Modules
 
         public static void SetLovers(byte playerid1, byte playerid2)
             => RoleHelpers.SetLovers(ModHelpers.PlayerById(playerid1), ModHelpers.PlayerById(playerid2));
+
+        public static void SetMadmate(byte playerid1)
+            => RoleHelpers.SetMadmate(ModHelpers.PlayerById(playerid1));
 
         public static void SheriffKill(byte SheriffId, byte TargetId, bool MissFire)
         {
@@ -1490,6 +1494,9 @@ namespace SuperNewRoles.Modules
                             break;
                         case CustomRPC.SetVampireStatus:
                             SetVampireStatus(reader.ReadByte(), reader.ReadByte(), reader.ReadBoolean(), reader.ReadBoolean());
+                            break;
+                        case CustomRPC.SetMadmate:
+                            SetMadmate(reader.ReadByte());
                             break;
                     }
                 }

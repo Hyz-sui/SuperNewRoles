@@ -197,6 +197,7 @@ namespace SuperNewRoles.Roles
             //ロールクリア
             Quarreled.ClearAndReload();
             Lovers.ClearAndReload();
+            Roles.Madmate.ClearAndReload();
             MapOptions.MapOption.ClearAndReload();
             ChacheManager.Load();
         }

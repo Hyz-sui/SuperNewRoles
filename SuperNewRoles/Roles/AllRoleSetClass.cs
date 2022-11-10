@@ -292,10 +292,14 @@ namespace SuperNewRoles
                 for (int i = 0; i < 10 - sucPar; i++)
                     list.Add("No");
 
+                Logger.Info("No Suc set end");
+
                 // ランダムでNoならばこれ以下を処理しない
                 if (ModHelpers.GetRandom(list) == "No")
                     return;
             }
+            Logger.Info("No checked");
+
             List<PlayerControl> selectPlayers = new();
 
             foreach (PlayerControl p in CachedPlayer.AllPlayers)
@@ -305,13 +309,17 @@ namespace SuperNewRoles
             // Madmateの人数回ループ
             for (int i = 0; i < Madmate.Count.GetFloat(); i++)
             {
+                // マッドメイトの設定数よりselectPlayers数が少なかったらループを抜ける
+                if (selectPlayers.Count < i) break;
                 PlayerControl playerData = null;
-                for (int j = 0; j < 2; j++)
-                {
-                    var rand = RoleClass.rnd.Next(0, selectPlayers.Count );
-                    playerData = selectPlayers[rand];
-                    selectPlayers.RemoveAt(rand);
-                }
+
+                var rand = ModHelpers.GetRandomIndex(selectPlayers);
+                Logger.Info($"rand:{rand}");
+                Logger.Info($"sp count:{selectPlayers.Count}");
+                playerData = selectPlayers[rand];
+                Logger.Info($"Data set");
+                selectPlayers.Remove(playerData);
+                Logger.Info($"{playerData.name} --> madmate");
                 RoleHelpers.SetMadmate(playerData);
                 RoleHelpers.SetMadmateRPC(playerData);
             }

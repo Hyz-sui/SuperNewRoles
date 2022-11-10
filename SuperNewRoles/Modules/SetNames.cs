@@ -250,19 +250,6 @@ namespace SuperNewRoles.Modules
                 }
             }
         }
-        public static void MadmateSet()
-        {
-            if (PlayerControl.LocalPlayer.IsMadmate() && PlayerControl.LocalPlayer.IsAlive())
-            {
-                if (Madmate.Player == new List<PlayerControl>()) return;
-                foreach (PlayerControl p in Madmate.Player)
-                {
-                    if (p.Data.Disconnected) continue;
-                    Logger.Info($"{p.name}を赤色セット！！！");
-                    SetPlayerNameText(p, ModHelpers.Cs(Madmate.color, p.NameText().text));
-                }
-            }
-        }
         public static void DemonSet()
         {
             if (PlayerControl.LocalPlayer.IsRole(RoleId.Demon) || PlayerControl.LocalPlayer.IsDead() || PlayerControl.LocalPlayer.IsRole(RoleId.God))
@@ -338,6 +325,11 @@ namespace SuperNewRoles.Modules
                 }
             }
         }
+        public static void MadmateSet()
+        {
+            if (CachedPlayer.LocalPlayer.PlayerControl.IsMadmate())
+                SetPlayerNameColor(CachedPlayer.LocalPlayer.PlayerControl, RoleClass.ImpostorRed);
+        }
     }
     public class SetNameUpdate
     {
@@ -392,6 +384,10 @@ namespace SuperNewRoles.Modules
                             }
                         }
                     }
+                }
+                if (PlayerControl.LocalPlayer.IsMadmate())
+                {
+                    SetNamesClass.SetPlayerNameColor(PlayerControl.LocalPlayer, RoleClass.ImpostorRed);
                 }
                 if (PlayerControl.LocalPlayer.IsImpostor())
                 {

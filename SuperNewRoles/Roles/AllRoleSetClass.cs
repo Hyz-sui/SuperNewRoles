@@ -137,8 +137,7 @@ namespace SuperNewRoles
                 {
                     SuperNewRolesPlugin.Logger.LogInfo("RoleSelectError:" + e);
                 }
-                try { AllRoleSetClass.MadmateRandomSelect(); }
-                catch (Exception e) { Logger.Error($"マッドメイトのセレクトでエラーが発生しました。{e}", "SHR RoleSelectError"); }
+                AllRoleSetClass.MadmateRandomSelect();
                 FixedUpdate.SetRoleNames();
                 return false;
             }
@@ -272,8 +271,7 @@ namespace SuperNewRoles
                 {
                     SuperNewRolesPlugin.Logger.LogInfo("RoleSelectError:" + e);
                 }
-                try { MadmateRandomSelect(); }
-                catch (Exception e) { Logger.Error($"マッドメイトのセレクトでエラーが発生しました。{e}", "RoleSelectError"); }
+                MadmateRandomSelect();
             }
         }
 

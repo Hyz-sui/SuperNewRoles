@@ -280,7 +280,7 @@ namespace SuperNewRoles
         public static void MadmateRandomSelect()
         {
             if (!Madmate.Option.GetBool() || (Madmate.Par.GetString() == "0%")) return;
-            Logger.Info("マッドメイトランダムセレクト");
+            Logger.Info($"マッドメイトランダムセレクト Par:{Madmate.Par.GetString()}");
             if (Madmate.Par.GetString() != "100%")
             {
                 List<string> list = new();
@@ -292,13 +292,11 @@ namespace SuperNewRoles
                 for (int i = 0; i < 10 - sucPar; i++)
                     list.Add("No");
 
-                Logger.Info("No Suc set end");
-
                 // ランダムでNoならばこれ以下を処理しない
                 if (ModHelpers.GetRandom(list) == "No")
                     return;
             }
-            Logger.Info("No checked");
+
 
             List<PlayerControl> selectPlayers = new();
 
@@ -314,16 +312,13 @@ namespace SuperNewRoles
                 PlayerControl playerData = null;
 
                 var rand = ModHelpers.GetRandomIndex(selectPlayers);
-                Logger.Info($"rand:{rand}");
-                Logger.Info($"sp count:{selectPlayers.Count}");
                 playerData = selectPlayers[rand];
-                Logger.Info($"Data set");
+
                 selectPlayers.Remove(playerData);
-                Logger.Info($"{playerData.name} --> madmate");
+
                 RoleHelpers.SetMadmate(playerData);
                 RoleHelpers.SetMadmateRPC(playerData);
             }
-            ChacheManager.ResetMadmateChache();
         }
 
         public static void QuarreledRandomSelect()

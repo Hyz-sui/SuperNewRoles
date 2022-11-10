@@ -8,14 +8,12 @@ namespace SuperNewRoles.Modules
         public static Dictionary<int, RoleId> MyGhostRoleChache;
         public static Dictionary<int, PlayerControl> LoversChache;
         public static Dictionary<int, PlayerControl> QuarreledChache;
-        public static Dictionary<int, PlayerControl> MadmateChache;
         public static void Load()
         {
             MyRoleChache = new Dictionary<int, RoleId>();
             MyGhostRoleChache = new Dictionary<int, RoleId>();
             LoversChache = new Dictionary<int, PlayerControl>();
             QuarreledChache = new Dictionary<int, PlayerControl>();
-            MadmateChache = new Dictionary<int, PlayerControl>();
         }
         public static void ResetChache()
         {
@@ -36,13 +34,6 @@ namespace SuperNewRoles.Modules
             foreach (PlayerControl p in CachedPlayer.AllPlayers)
             {
                 LoversChache[p.PlayerId] = p.IsLovers(false) ? p.GetOneSideLovers(false) : null;
-            }
-        }
-        public static void ResetMadmateChache()
-        {
-            foreach (PlayerControl p in CachedPlayer.AllPlayers)
-            {
-                MadmateChache[p.PlayerId] = p.IsLovers(false) ? p.GetOneSideLovers(false) : null;
             }
         }
         public static void ResetMyRoleChache()

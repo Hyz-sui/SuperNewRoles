@@ -20,6 +20,7 @@ namespace SuperNewRoles.Modules
         Impostor,
         Neutral,
         Crewmate,
+        Modifier,
         Empty // 使用されない
     }
 
@@ -80,10 +81,7 @@ namespace SuperNewRoles.Modules
         }
 
         // Option creation
-        public CustomOption()
-        {
-
-        }
+        public CustomOption() { }
 
         public CustomOption(int id, bool IsSHROn, CustomOptionType type, string name, System.Object[] selections, System.Object defaultValue, CustomOption parent, bool isHeader, bool isHidden, string format)
         {
@@ -112,7 +110,7 @@ namespace SuperNewRoles.Modules
                 selection = Mathf.Clamp(entry.Value, 0, selections.Length - 1);
                 if (options.Any(x => x.id == id))
                 {
-                    SuperNewRolesPlugin.Logger.LogInfo("CustomOptionのId(" + id + ")が重複しています。");
+                    Logger.Info($"CustomOptionのId({id})が重複しています。", "CustomOptionModel");
                 }
                 if (Max < id)
                 {
@@ -298,12 +296,12 @@ namespace SuperNewRoles.Modules
             {
                 this.RoleId = IntroData.IntroList.FirstOrDefault((_) =>
                 {
-                    return _.NameKey + "Name" == name;
+                    return $"{_.NameKey}Name" == name;
                 }).RoleId;
             }
             catch
             {
-                Logger.Info("RoleId取得でエラーが発生しました:" + name, "CustomRoleOption");
+                Logger.Info($"RoleId取得でエラーが発生しました:{name}", "CustomRoleOption");
             }
             RoleOptions.Add(this);
             if (max > 1)
@@ -399,12 +397,17 @@ namespace SuperNewRoles.Modules
                 GameObject.Find("CrewmateSettings").transform.FindChild("GameGroup").FindChild("Text").GetComponent<TMPro.TextMeshPro>().SetText(ModTranslation.GetString("SettingCrewmate"));
                 return;
             }
+            if (GameObject.Find("ModifierSettings") != null)
+            {
+                GameObject.Find("ModifierSettings").transform.FindChild("GameGroup").FindChild("Text").GetComponent<TMPro.TextMeshPro>().SetText(ModTranslation.GetString("SettingModifier"));
+                return;
+            }
             if (GameObject.Find("RegulationSettings") != null)
             {
                 GameObject.Find("RegulationSettings").transform.FindChild("GameGroup").FindChild("Text").GetComponent<TMPro.TextMeshPro>().SetText(ModTranslation.GetString("SettingRegulation"));
                 return;
             }
-            // Setup TOR tab
+            // Setup SNR tab
             var template = UnityEngine.Object.FindObjectsOfType<StringOption>().FirstOrDefault();
             if (template == null) return;
             var gameSettings = GameObject.Find("Game Settings");
@@ -429,6 +432,11 @@ namespace SuperNewRoles.Modules
             var crewmateMenu = crewmateSettings.transform.FindChild("GameGroup").FindChild("SliderInner").GetComponent<GameOptionsMenu>();
             crewmateSettings.name = "CrewmateSettings";
             crewmateSettings.transform.FindChild("GameGroup").FindChild("SliderInner").name = "CrewmateSetting";
+
+            var modifierSettings = UnityEngine.Object.Instantiate(gameSettings, gameSettings.transform.parent);
+            var modifierMenu = crewmateSettings.transform.FindChild("GameGroup").FindChild("SliderInner").GetComponent<GameOptionsMenu>();
+            modifierSettings.name = "ModifierSettings";
+            modifierSettings.transform.FindChild("GameGroup").FindChild("SliderInner").name = "ModifierSetting";
 
             var RegulationSettings = UnityEngine.Object.Instantiate(gameSettings, gameSettings.transform.parent);
             var RegulationMenu = RegulationSettings.transform.FindChild("GameGroup").FindChild("SliderInner").GetComponent<GameOptionsMenu>();
@@ -457,6 +465,11 @@ namespace SuperNewRoles.Modules
             crewmateTab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Setting_Crewmate.png", 100f);
             crewmateTab.name = "CrewmateTab";
 
+            var modifierTab = UnityEngine.Object.Instantiate(roleTab, crewmateTab.transform);
+            var modifierTabHighlight = crewmateTab.transform.FindChild("Hat Button").FindChild("Tab Background").GetComponent<SpriteRenderer>();
+            modifierTab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Setting_Modifier.png", 100f);
+            modifierTab.name = "ModifierTab";
+
             var RegulationTab = UnityEngine.Object.Instantiate(roleTab, neutralTab.transform);
             var RegulationTabHighlight = RegulationTab.transform.FindChild("Hat Button").FindChild("Tab Background").GetComponent<SpriteRenderer>();
             RegulationTab.transform.FindChild("Hat Button").FindChild("Icon").GetComponent<SpriteRenderer>().sprite = ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Setting_Crewmate.png", 100f);
@@ -469,9 +482,10 @@ namespace SuperNewRoles.Modules
             impostorTab.transform.localPosition = Vector3.right * 1f;
             neutralTab.transform.localPosition = Vector3.right * 1f;
             crewmateTab.transform.localPosition = Vector3.right * 0.95f;
+            modifierTab.transform.localPosition = Vector3.right * 1f;
             RegulationTab.transform.localPosition = Vector3.right * 1.85f;
 
-            var tabs = new GameObject[] { gameTab, roleTab, snrTab, impostorTab, neutralTab, crewmateTab, RegulationTab };
+            var tabs = new GameObject[] { gameTab, roleTab, snrTab, impostorTab, neutralTab, crewmateTab, modifierTab, RegulationTab };
             for (int i = 0; i < tabs.Length; i++)
             {
                 var button = tabs[i].GetComponentInChildren<PassiveButton>();
@@ -485,6 +499,7 @@ namespace SuperNewRoles.Modules
                     impostorSettings.gameObject.SetActive(false);
                     neutralSettings.gameObject.SetActive(false);
                     crewmateSettings.gameObject.SetActive(false);
+                    modifierSettings.gameObject.SetActive(false);
                     RegulationSettings.gameObject.SetActive(false);
                     gameSettingMenu.GameSettingsHightlight.enabled = false;
                     gameSettingMenu.RolesSettingsHightlight.enabled = false;
@@ -492,6 +507,7 @@ namespace SuperNewRoles.Modules
                     impostorTabHighlight.enabled = false;
                     neutralTabHighlight.enabled = false;
                     crewmateTabHighlight.enabled = false;
+                    modifierTabHighlight.enabled = false;
                     RegulationTabHighlight.enabled = false;
                     if (copiedIndex == 0)
                     {
@@ -525,10 +541,14 @@ namespace SuperNewRoles.Modules
                     }
                     else if (copiedIndex == 6)
                     {
+                        modifierSettings.gameObject.SetActive(true);
+                        modifierTabHighlight.enabled = true;
+                    }
+                    else if (copiedIndex == 7)
+                    {
                         RegulationSettings.gameObject.SetActive(true);
                         RegulationTabHighlight.enabled = true;
                     }
-
                 }));
             }
 
@@ -540,15 +560,18 @@ namespace SuperNewRoles.Modules
                 UnityEngine.Object.Destroy(option.gameObject);
             foreach (OptionBehaviour option in crewmateMenu.GetComponentsInChildren<OptionBehaviour>())
                 UnityEngine.Object.Destroy(option.gameObject);
+            foreach (OptionBehaviour option in modifierMenu.GetComponentsInChildren<OptionBehaviour>())
+                UnityEngine.Object.Destroy(option.gameObject);
             foreach (OptionBehaviour option in RegulationMenu.GetComponentsInChildren<OptionBehaviour>())
                 UnityEngine.Object.Destroy(option.gameObject);
             List<OptionBehaviour> snrOptions = new();
             List<OptionBehaviour> impostorOptions = new();
             List<OptionBehaviour> neutralOptions = new();
             List<OptionBehaviour> crewmateOptions = new();
+            List<OptionBehaviour> modifierOptions = new();
 
-            List<Transform> menus = new() { snrMenu.transform, impostorMenu.transform, neutralMenu.transform, crewmateMenu.transform, RegulationMenu.transform };
-            List<List<OptionBehaviour>> optionBehaviours = new() { snrOptions, impostorOptions, neutralOptions, crewmateOptions };
+            List<Transform> menus = new() { snrMenu.transform, impostorMenu.transform, neutralMenu.transform, crewmateMenu.transform, modifierMenu.transform, RegulationMenu.transform };
+            List<List<OptionBehaviour>> optionBehaviours = new() { snrOptions, impostorOptions, neutralOptions, crewmateOptions, modifierOptions };
 
             for (int i = 0; i < CustomOption.options.Count; i++)
             {
@@ -566,7 +589,7 @@ namespace SuperNewRoles.Modules
                 }
                 option.optionBehaviour.gameObject.SetActive(true);
             }
-            Logger.Info("通過やでええええええええええええええええ");
+            Logger.Info("GameOptionsMenuStart通過", "CustomOptionModel");
             foreach (var Regulation in CustomRegulation.RegulationData.Regulations)
             {
                 if (Regulation.optionBehaviour == null)
@@ -593,6 +616,9 @@ namespace SuperNewRoles.Modules
 
             crewmateMenu.Children = crewmateOptions.ToArray();
             crewmateSettings.gameObject.SetActive(false);
+
+            modifierMenu.Children = modifierOptions.ToArray();
+            modifierSettings.gameObject.SetActive(false);
 
             RegulationSettings.gameObject.SetActive(false);
 
@@ -770,6 +796,7 @@ namespace SuperNewRoles.Modules
                 "ImpostorSetting" => CustomOptionType.Impostor,
                 "NeutralSetting" => CustomOptionType.Neutral,
                 "CrewmateSetting" => CustomOptionType.Crewmate,
+                "ModifierSetting" => CustomOptionType.Modifier,
                 _ => CustomOptionType.Crewmate,
             };
         }

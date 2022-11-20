@@ -68,7 +68,7 @@ namespace SuperNewRoles.Roles
                 if (p == 1f && rend != null)
                 {
                     UnityEngine.Object.Destroy(rend.gameObject);
-                    Logger.Info("GameObject.Destroy(FullScreenRenderer);");
+                    Logger.Info("発動待機状態に戻しました。", "Object.Destroy");
                 }
             })));
         }

@@ -18,6 +18,13 @@ namespace SuperNewRoles.Roles
         };
 
         public static SpriteRenderer FullScreenRenderer;
+        public static SpriteRenderer GetFullScreenRenderer()
+        {
+            if (FullScreenRenderer) return FullScreenRenderer;
+            var renderer = FastDestroyableSingleton<HudManager>.Instance;
+            FullScreenRenderer = GameObject.Instantiate(renderer.FullScreen, renderer.transform);
+            return FullScreenRenderer;
+        }
 
         /** <summary>
             画面を光らせる
@@ -35,29 +42,33 @@ namespace SuperNewRoles.Roles
         public static void ShowFlash(Color color, float duration = 1f)
         {
             var renderer = FastDestroyableSingleton<HudManager>.Instance;
-            FullScreenRenderer = GameObject.Instantiate(renderer.FullScreen, renderer.transform);
-            if (renderer == null || renderer.FullScreen == null) return;
-            FullScreenRenderer.gameObject.SetActive(true);
-            FullScreenRenderer.enabled = true;
+            GameObject flash = new();
+            var rend = flash.AddComponent<SpriteRenderer>();
+            rend = GetFullScreenRenderer();
+
+            if (rend == null || renderer.FullScreen == null) return;
+            rend.gameObject.SetActive(true);
+            rend.enabled = true;
             renderer.StartCoroutine(Effects.Lerp(duration, new Action<float>((p) =>
             {
                 if (p < 0.5)
                 {
-                    if (FullScreenRenderer != null)
+                    if (rend != null)
                     {
-                        FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01(p * 2 * 0.75f));
+                        rend.color = new Color(color.r, color.g, color.b, Mathf.Clamp01(p * 2 * 0.75f));
                     }
                 }
                 else
                 {
-                    if (FullScreenRenderer != null)
+                    if (rend != null)
                     {
-                        FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01((1 - p) * 2 * 0.75f));
+                        rend.color = new Color(color.r, color.g, color.b, Mathf.Clamp01((1 - p) * 2 * 0.75f));
                     }
                 }
-                if (p == 1f && FullScreenRenderer != null)
+                if (p == 1f && rend != null)
                 {
-                    GameObject.Destroy(FullScreenRenderer);
+                    UnityEngine.Object.Destroy(rend.gameObject);
+                    Logger.Info("GameObject.Destroy(FullScreenRenderer);");
                 }
             })));
         }

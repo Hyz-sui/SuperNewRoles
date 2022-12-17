@@ -833,6 +833,7 @@ AssassinFail,was not Marlin.,はマーリンではなかった,不是梅林
 MarlinName,Merine,マーリン,梅林
 MarlinTitle1,Let's not let <color=#ff0000>Assassin</color> find out.,<color=#ff0000>アサシン</color>にバレないようにしよう。,不要被<color=#ff0000>刺客</color>发现。
 MarlinWhois,Who is Merine?,マーリンは誰だ？,谁是梅林？
+MariinHasTask,Merlin will have the task?,マーリンがタスクを持つか
 ArsonistName,Arsonist,アーソニスト,纵火犯
 ArsonistTitle1,Douse Douse burn,塗って塗って燃やせ,燃烧吧
 ArsonistDurationTimeSetting,Douse Duration,塗り時間,纵火犯涂油所需时间

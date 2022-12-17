@@ -628,6 +628,7 @@ public class CustomOptionHolder
     public static CustomRoleOption AssassinAndMarlinOption;
     public static CustomOption AssassinPlayerCount;
     public static CustomOption MarlinPlayerCount;
+    public static CustomOption MariinHasTask;
 
     public static CustomRoleOption ChiefOption;
     public static CustomOption ChiefPlayerCount;
@@ -1522,6 +1523,7 @@ public class CustomOptionHolder
         AssassinAndMarlinOption = new(386, true, CustomOptionType.Impostor, "AssassinAndMarlinName", Color.white, 1);
         AssassinPlayerCount = Create(387, true, CustomOptionType.Impostor, "AssassinSettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], AssassinAndMarlinOption);
         MarlinPlayerCount = Create(388, true, CustomOptionType.Impostor, "MarlinSettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], AssassinAndMarlinOption);
+        MariinHasTask = Create(369, true, CustomOptionType.Impostor, "MariinHasTask", false, AssassinAndMarlinOption);
 
         ArsonistOption = SetupCustomRoleOption(389, true, RoleId.Arsonist);
         ArsonistPlayerCount = Create(390, true, CustomOptionType.Neutral, "SettingPlayerCountName", AlonePlayers[0], AlonePlayers[1], AlonePlayers[2], AlonePlayers[3], ArsonistOption);

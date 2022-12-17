@@ -1209,6 +1209,7 @@ public static class RoleHelpers
                 IsTaskClear = true;
                 break;
             case RoleId.Sheriff when RoleClass.Chief.NoTaskSheriffPlayer.Contains(player.PlayerId):
+            case RoleId.Marlin when !CustomOptionHolder.MariinHasTask.GetBool():
                 IsTaskClear = true;
                 break;
         }

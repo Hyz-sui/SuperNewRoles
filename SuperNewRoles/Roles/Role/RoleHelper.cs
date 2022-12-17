@@ -492,8 +492,8 @@ public static class RoleHelpers
             case RoleId.Assassin:
                 RoleClass.Assassin.AssassinPlayer.Add(player);
                 break;
-            case RoleId.Marine:
-                RoleClass.Marine.MarinePlayer.Add(player);
+            case RoleId.Marlin:
+                RoleClass.Marlin.MarlinPlayer.Add(player);
                 break;
             case RoleId.Arsonist:
                 RoleClass.Arsonist.ArsonistPlayer.Add(player);
@@ -966,8 +966,8 @@ public static class RoleHelpers
             case RoleId.Assassin:
                 RoleClass.Assassin.AssassinPlayer.RemoveAll(ClearRemove);
                 break;
-            case RoleId.Marine:
-                RoleClass.Marine.MarinePlayer.RemoveAll(ClearRemove);
+            case RoleId.Marlin:
+                RoleClass.Marlin.MarlinPlayer.RemoveAll(ClearRemove);
                 break;
             case RoleId.Arsonist:
                 RoleClass.Arsonist.ArsonistPlayer.RemoveAll(ClearRemove);
@@ -1580,7 +1580,7 @@ public static class RoleHelpers
             else if (RoleClass.JackalSeer.JackalSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.JackalSeer;
             else if (RoleClass.JackalSeer.SidekickSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.SidekickSeer;
             else if (RoleClass.Assassin.AssassinPlayer.IsCheckListPlayerControl(player)) return RoleId.Assassin;
-            else if (RoleClass.Marine.MarinePlayer.IsCheckListPlayerControl(player)) return RoleId.Marine;
+            else if (RoleClass.Marlin.MarlinPlayer.IsCheckListPlayerControl(player)) return RoleId.Marlin;
             else if (RoleClass.SeerFriends.SeerFriendsPlayer.IsCheckListPlayerControl(player)) return RoleId.SeerFriends;
             else if (RoleClass.Arsonist.ArsonistPlayer.IsCheckListPlayerControl(player)) return RoleId.Arsonist;
             else if (RoleClass.Chief.ChiefPlayer.IsCheckListPlayerControl(player)) return RoleId.Chief;

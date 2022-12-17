@@ -137,7 +137,7 @@ public static class RoleClass
         SeerFriends.ClearAndReload();
         JackalSeer.ClearAndReload();
         Assassin.ClearAndReload();
-        Marine.ClearAndReload();
+        Marlin.ClearAndReload();
         Arsonist.ClearAndReload();
         Chief.ClearAndReload();
         Cleaner.ClearAndReload();
@@ -1846,13 +1846,13 @@ public static class RoleClass
             IsImpostorWin = false;
         }
     }
-    public static class Marine
+    public static class Marlin
     {
-        public static List<PlayerControl> MarinePlayer;
+        public static List<PlayerControl> MarlinPlayer;
         public static Color32 color = new(175, 223, 228, byte.MaxValue);
         public static void ClearAndReload()
         {
-            MarinePlayer = new();
+            MarlinPlayer = new();
         }
     }
     public static class Arsonist

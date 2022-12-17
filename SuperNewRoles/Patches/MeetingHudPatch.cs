@@ -130,7 +130,7 @@ class CheckForEndVotingPatch
                                     exile = p;
                                     p.RpcSetColor((byte)outfit.ColorId);
                                     p.RpcSetName(target.Object.GetDefaultName() +
-                                        ModTranslation.GetString(target.Object.IsRole(RoleId.Marine) ?
+                                        ModTranslation.GetString(target.Object.IsRole(RoleId.Marlin) ?
                                         "AssassinSucsess" :
                                         "AssassinFail")
                                         + "<size=0%>");
@@ -142,7 +142,7 @@ class CheckForEndVotingPatch
                             }
                         }
                         RoleClass.Assassin.MeetingEndPlayers.Add(RoleClass.Assassin.TriggerPlayer.PlayerId);
-                        if (target.Object.IsRole(RoleId.Marine))
+                        if (target.Object.IsRole(RoleId.Marlin))
                             RoleClass.Assassin.IsImpostorWin = true;
                         else
                             RoleClass.Assassin.DeadPlayer = RoleClass.Assassin.TriggerPlayer;

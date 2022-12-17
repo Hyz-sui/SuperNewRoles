@@ -144,7 +144,7 @@ It is already on the Discord server.
 | [EvilSeer](#EvilSeer)                   | [Spirit Medium](#SpiritMedium)            |
 | [DarkKiller](#DarkKiller)               | [MadMayor](#MadMayor)                     |
 | [Vampire](#Vampire)                     | [NiceHawk](#NiceHawk)                     |
-| [AssassinAndMarine](#AssassinAndMarine) | [MadStuntman](#MadStuntman)               |
+| [AssassinAndMarlin](#AssassinAndMarlin) | [MadStuntman](#MadStuntman)               |
 | [Cleaner](#Cleaner)                     | [MadHawk](#MadHawk)                       |
 | [Samurai](#Samurai)                     | [Bakery](#Bakery)                         |
 | [VentMaker](#VentMaker)                 | [MadJester](#MadJester)                   |

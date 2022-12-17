@@ -355,7 +355,7 @@ public class SetNameUpdate
         {
             if (Madmate.CheckImpostor(PlayerControl.LocalPlayer) ||
                 LocalRole == RoleId.MadKiller ||
-                LocalRole == RoleId.Marine ||
+                LocalRole == RoleId.Marlin ||
                 (RoleClass.Demon.IsCheckImpostor && LocalRole == RoleId.Demon)
                 )
             {

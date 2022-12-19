@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AmongUs.GameOptions;
+using HarmonyLib;
 using Hazel;
 using SuperNewRoles.CustomObject;
 using SuperNewRoles.Mode;

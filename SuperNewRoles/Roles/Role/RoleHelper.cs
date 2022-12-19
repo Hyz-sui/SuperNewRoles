@@ -232,6 +232,10 @@ public static class RoleHelpers
         }
         return null;
     }
+    public static void OnDeath(this PlayerControl player, PlayerControl killer)
+    {
+        RoleTemplate.Role.allRoles.DoIf(x => x.player == player, x => x.OnDeath(killer));
+    }
     public static bool IsPavlovsTeam(this PlayerControl player) => player.GetRole() is
             RoleId.Pavlovsdogs or
             RoleId.Pavlovsowner;

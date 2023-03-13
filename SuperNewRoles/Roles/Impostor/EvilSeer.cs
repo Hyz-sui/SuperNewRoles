@@ -101,9 +101,6 @@ public class EvilSeer : RoleBase<EvilSeer>
     }
     private List<Vector3> _deadBodyPositions;
     public static int mode;
-
-    public static bool IsImpostorCheck;
-    public static int ImpostorCheckTask;
     public bool IsCreateMadmate
     {
         get { return ReplayData.CanReplayCheckPlayerView ? GetValueBool("_IsCreateMadmate") : _IsCreateMadmate; }

@@ -14,6 +14,7 @@ public static class RoleBaseHelper
         {
             // Impostor
             { RoleId.EvilScientist, typeof(RoleBase<EvilScientist>) },
+            { RoleId.EvilSeer, typeof(RoleBase<EvilSeer>) },
 
             // Neutral
             { RoleId.Jester, typeof(RoleBase<Jester>) },
@@ -39,6 +40,7 @@ public static class RoleBaseHelper
     {
         // Impostor
         new EvilScientist().SetUpOption();
+        new EvilSeer().SetUpOption();
 
         // Neutral
         new Jester().SetUpOption();

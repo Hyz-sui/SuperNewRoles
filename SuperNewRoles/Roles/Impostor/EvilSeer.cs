@@ -2,30 +2,25 @@ using System;
 using System.Collections.Generic;
 using SuperNewRoles.Mode;
 using SuperNewRoles.ReplayManager;
-using SuperNewRoles.Patches;
 using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
 using static SuperNewRoles.Roles.Crewmate.Seer;
 using static SuperNewRoles.Modules.CustomOption;
-using static SuperNewRoles.Modules.CustomOptionHolder;
 
-namespace SuperNewRoles.Roles.Impostor.MadRole;
+namespace SuperNewRoles.Roles.Impostor;
 
-public class MadSeer : RoleBase<MadSeer>
+public class EvilSeer : RoleBase<EvilSeer>
 {
     public static Color color = RoleClass.ImpostorRed;
 
-    public MadSeer()
+    public EvilSeer()
     {
-        RoleId = roleId = RoleId.MadSeer;
+        RoleId = roleId = RoleId.EvilSeer;
         //以下いるもののみ変更
-        OptionId = 323;
+        OptionId = 335;
+        HasTask = false;
         IsSHRRole = true;
-        OptionType = CustomOptionType.Crewmate;
-        CanUseVentOptionOn = true;
-        CanUseVentOptionDefault = false;
-        IsImpostorViewOptionOn = true;
-        IsImpostorViewOptionDefault = false;
+        OptionType = CustomOptionType.Impostor;
     }
 
     public override void OnMeetingStart() { }
@@ -37,7 +32,7 @@ public class MadSeer : RoleBase<MadSeer>
 
         DeadBodyPositions = deadBodyPositions;
         deadBodyPositions = new List<Vector3>();
-        limitSoulDuration = MadSeerLimitSoulDuration.GetBool();
+        limitSoulDuration = EvilSeerLimitSoulDuration.GetBool();
         soulDuration = SeerSoulDuration.GetFloat();
         if (mode is not 0 and not 2) return;
 
@@ -72,7 +67,11 @@ public class MadSeer : RoleBase<MadSeer>
     public override void HandleDisconnect(PlayerControl player, DisconnectReasons reason) { }
     public override void EndUseAbility() { }
     public override void ResetRole() { }
-    public override void PostInit() { deadBodyPositions = new(); }
+    public override void PostInit()
+    {
+        deadBodyPositions = new();
+        IsCreateMadmate = EvilSeerMadmateSetting.GetBool();
+    }
     public override void UseAbility() { base.UseAbility(); AbilityLimit--; if (AbilityLimit <= 0) EndUseAbility(); }
     public override bool CanUseAbility() { return base.CanUseAbility() && AbilityLimit <= 0; }
 
@@ -81,25 +80,16 @@ public class MadSeer : RoleBase<MadSeer>
     public static void SetButtonCooldowns() { }
 
     // CustomOption Start
-    public static CustomOption MadSeerMode;
-    public static CustomOption MadSeerLimitSoulDuration;
-    public static CustomOption MadSeerSoulDuration;
-    public static CustomOption MadSeerIsCheckImpostor;
-    public static CustomOption MadSeerCommonTask;
-    public static CustomOption MadSeerShortTask;
-    public static CustomOption MadSeerLongTask;
-    public static CustomOption MadSeerCheckImpostorTask;
+    public static CustomOption EvilSeerMode;
+    public static CustomOption EvilSeerLimitSoulDuration;
+    public static CustomOption EvilSeerSoulDuration;
+    public static CustomOption EvilSeerMadmateSetting;
     public override void SetupMyOptions()
     {
-        MadSeerMode = Create(OptionId, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
-        MadSeerLimitSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
-        MadSeerSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, MadSeerLimitSoulDuration, format: "unitCouples"); OptionId++;
-        MadSeerIsCheckImpostor = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateIsCheckImpostorSetting", false, RoleOption); OptionId++;
-        var MadSeeroption = SelectTask.TaskSetting(OptionId, OptionId + 1, OptionId + 2, MadSeerIsCheckImpostor, CustomOptionType.Crewmate, true); OptionId += 3;
-        MadSeerCommonTask = MadSeeroption.Item1;
-        MadSeerShortTask = MadSeeroption.Item2;
-        MadSeerLongTask = MadSeeroption.Item3;
-        MadSeerCheckImpostorTask = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateCheckImpostorTaskSetting", rates4, MadSeerIsCheckImpostor);
+        EvilSeerMode = Create(OptionId, false, CustomOptionType.Impostor, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
+        EvilSeerLimitSoulDuration = Create(OptionId, false, CustomOptionType.Impostor, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
+        EvilSeerSoulDuration = Create(OptionId, false, CustomOptionType.Impostor, "SeerSoulDuration", 15f, 0f, 120f, 5f, EvilSeerLimitSoulDuration, format: "unitCouples"); OptionId++;
+        EvilSeerMadmateSetting = Create(1092, false, CustomOptionType.Impostor, "CreateMadmateSetting", false, RoleOption);
     }
     // CustomOption End
 
@@ -114,11 +104,17 @@ public class MadSeer : RoleBase<MadSeer>
 
     public static bool IsImpostorCheck;
     public static int ImpostorCheckTask;
+    public bool IsCreateMadmate
+    {
+        get { return ReplayData.CanReplayCheckPlayerView ? GetValueBool("_IsCreateMadmate") : _IsCreateMadmate; }
+        set { if (ReplayData.CanReplayCheckPlayerView) SetValueBool("_IsCreateMadmate", value); else _IsCreateMadmate = value; }
+    }
+    private bool _IsCreateMadmate;
 
     public static void Clear()
     {
         players = new();
-        mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : MadSeerMode.GetSelection();
+        mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : EvilSeerMode.GetSelection();
     }
 
     // RoleClass End

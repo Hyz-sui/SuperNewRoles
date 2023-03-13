@@ -153,7 +153,7 @@ public static class RoleClass
         Seer.Clear();
         Seer.ShowFlash_ClearAndReload();
         MadSeer.Clear();
-        EvilSeer.ClearAndReload();
+        EvilSeer.Clear();
         RemoteSheriff.Clear();
         TeleportingJackal.ClearAndReload();
         MadMaker.ClearAndReload();
@@ -1493,26 +1493,6 @@ public static class RoleClass
         }
     }
 
-    public static class EvilSeer
-    {
-        public static List<PlayerControl> EvilSeerPlayer;
-        public static Color32 color = ImpostorRed;
-        public static List<Vector3> deadBodyPositions;
-
-        public static float soulDuration;
-        public static bool limitSoulDuration;
-        public static int mode;
-        public static bool IsCreateMadmate;
-        public static void ClearAndReload()
-        {
-            EvilSeerPlayer = new();
-            deadBodyPositions = new();
-            limitSoulDuration = CustomOptionHolder.EvilSeerLimitSoulDuration.GetBool();
-            soulDuration = CustomOptionHolder.EvilSeerSoulDuration.GetFloat();
-            mode = Mode.ModeHandler.IsMode(Mode.ModeId.SuperHostRoles) ? 1 : CustomOptionHolder.EvilSeerMode.GetSelection();
-            IsCreateMadmate = CustomOptionHolder.EvilSeerMadmateSetting.GetBool();
-        }
-    }
     public static class TeleportingJackal
     {
         public static List<PlayerControl> TeleportingJackalPlayer;

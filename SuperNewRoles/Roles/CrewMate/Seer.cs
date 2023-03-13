@@ -45,13 +45,6 @@ public class Seer : RoleBase<Seer>
                     soulDuration = SeerSoulDuration.GetFloat();
                     if (mode is not 0 and not 2) return;
                     break;
-                case RoleId.EvilSeer:
-                    DeadBodyPositions = RoleClass.EvilSeer.deadBodyPositions;
-                    RoleClass.EvilSeer.deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = RoleClass.EvilSeer.limitSoulDuration;
-                    soulDuration = RoleClass.EvilSeer.soulDuration;
-                    if (RoleClass.EvilSeer.mode is not 0 and not 2) return;
-                    break;
                 case RoleId.SeerFriends:
                     DeadBodyPositions = RoleClass.SeerFriends.deadBodyPositions;
                     RoleClass.SeerFriends.deadBodyPositions = new List<Vector3>();
@@ -214,8 +207,8 @@ public class Seer : RoleBase<Seer>
                         ModeFlag = MadSeer.mode <= 1;
                         break;
                     case RoleId.EvilSeer:
-                        if (RoleClass.EvilSeer.deadBodyPositions != null) RoleClass.EvilSeer.deadBodyPositions.Add(target.transform.position);
-                        ModeFlag = RoleClass.EvilSeer.mode <= 1;
+                        if (EvilSeer.local.deadBodyPositions != null) EvilSeer.local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = EvilSeer.mode <= 1;
                         break;
                     case RoleId.SeerFriends:
                         if (RoleClass.SeerFriends.deadBodyPositions != null) RoleClass.SeerFriends.deadBodyPositions.Add(target.transform.position);
@@ -237,8 +230,8 @@ public class Seer : RoleBase<Seer>
         {
             List<List<PlayerControl>> seers = new() {
                     allPlayers,
-                    RoleClass.EvilSeer.EvilSeerPlayer,
                     MadSeer.allPlayers,
+                    EvilSeer.allPlayers,
                     RoleClass.JackalSeer.JackalSeerPlayer,
                     RoleClass.SeerFriends.SeerFriendsPlayer
                 };

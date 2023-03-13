@@ -33,7 +33,7 @@ public class EvilSeer : RoleBase<EvilSeer>
         DeadBodyPositions = deadBodyPositions;
         deadBodyPositions = new List<Vector3>();
         limitSoulDuration = EvilSeerLimitSoulDuration.GetBool();
-        soulDuration = SeerSoulDuration.GetFloat();
+        soulDuration = EvilSeerSoulDuration.GetFloat();
         if (mode is not 0 and not 2) return;
 
         foreach (Vector3 pos in DeadBodyPositions)

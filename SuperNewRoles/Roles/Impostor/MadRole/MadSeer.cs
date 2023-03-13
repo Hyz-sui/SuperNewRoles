@@ -39,7 +39,7 @@ public class MadSeer : RoleBase<MadSeer>
         DeadBodyPositions = deadBodyPositions;
         deadBodyPositions = new List<Vector3>();
         limitSoulDuration = MadSeerLimitSoulDuration.GetBool();
-        soulDuration = SeerSoulDuration.GetFloat();
+        soulDuration = MadSeerSoulDuration.GetFloat();
         if (mode is not 0 and not 2) return;
 
         foreach (Vector3 pos in DeadBodyPositions)

@@ -150,8 +150,8 @@ public static class RoleClass
         Vampire.ClearAndReload();
         Fox.Clear();
         DarkKiller.ClearAndReload();
-        Seer.ClearAndReload();
-        Crewmate.Seer.ShowFlash_ClearAndReload();
+        Seer.Clear();
+        Seer.ShowFlash_ClearAndReload();
         MadSeer.ClearAndReload();
         EvilSeer.ClearAndReload();
         RemoteSheriff.Clear();
@@ -1490,25 +1490,6 @@ public static class RoleClass
             DarkKillerPlayer = new();
             KillCoolTime = CustomOptionHolder.DarkKillerKillCoolTime.GetFloat();
             KillButtonDisable = false;
-        }
-    }
-    public static class Seer
-    {
-        public static List<PlayerControl> SeerPlayer;
-        public static Color color = new Color32(97, 178, 108, byte.MaxValue);
-        public static List<Vector3> deadBodyPositions;
-
-        public static float soulDuration;
-        public static bool limitSoulDuration;
-        public static int mode;
-
-        public static void ClearAndReload()
-        {
-            SeerPlayer = new();
-            deadBodyPositions = new();
-            limitSoulDuration = CustomOptionHolder.SeerLimitSoulDuration.GetBool();
-            soulDuration = CustomOptionHolder.SeerSoulDuration.GetFloat();
-            mode = Mode.ModeHandler.IsMode(Mode.ModeId.SuperHostRoles) ? 1 : CustomOptionHolder.SeerMode.GetSelection();
         }
     }
     public static class MadSeer

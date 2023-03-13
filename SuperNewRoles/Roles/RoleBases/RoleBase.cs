@@ -45,9 +45,11 @@ public abstract class Role
     public void SetValueByte(string name, byte value) => RoleDataManager.SetValueByte($"{ObjectId.ToString()}_{name}", value);
     public void SetValueBool(string name, bool value) => RoleDataManager.SetValueBool($"{ObjectId.ToString()}_{name}", value);
     public void SetValueFloat(string name, float value) => RoleDataManager.SetValueFloat($"{ObjectId.ToString()}_{name}", value);
+    public List<Vector3> SetValueVector3(string name, List<Vector3> value) => RoleDataManager.SetValueVector3($"{ObjectId.ToString()}_{name}", value);
     public float GetValueFloat(string name) => RoleDataManager.GetValueFloat($"{ObjectId.ToString()}_{name}");
     public byte GetValueByte(string name) => RoleDataManager.GetValueByte($"{ObjectId.ToString()}_{name}");
     public bool GetValueBool(string name) => RoleDataManager.GetValueBool($"{ObjectId.ToString()}_{name}");
+    public List<Vector3> GetValueVector3(string name) => RoleDataManager.GetValueVector3($"{ObjectId.ToString()}_{name}");
 }
 
 public abstract class RoleBase<T> : Role where T : RoleBase<T>, new()

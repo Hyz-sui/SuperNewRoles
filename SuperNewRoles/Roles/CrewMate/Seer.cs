@@ -3,72 +3,28 @@ using System.Collections.Generic;
 using HarmonyLib;
 using SuperNewRoles.Mode;
 using SuperNewRoles.Mode.SuperHostRoles;
+using SuperNewRoles.ReplayManager;
+using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
-
+using static SuperNewRoles.Modules.CustomOption;
+using static SuperNewRoles.Modules.CustomOptionHolder;
 namespace SuperNewRoles.Roles.Crewmate;
 
-class Seer
-//マッド・イビル・フレンズ・ジャッカル・サイドキック　シーア
+public class Seer : RoleBase<Seer>
 {
-    private static SpriteRenderer FullScreenRenderer;
-    private static HudManager Renderer;
-    public static void ShowFlash_ClearAndReload()
+    public static Color color = new Color32(97, 178, 108, byte.MaxValue);
+
+    public Seer()
     {
-        FullScreenRenderer = GameObject.Instantiate(FastDestroyableSingleton<HudManager>.Instance.FullScreen, FastDestroyableSingleton<HudManager>.Instance.transform);
-        Renderer = FastDestroyableSingleton<HudManager>.Instance;
+        RoleId = roleId = RoleId.Seer;
+        //以下いるもののみ変更
+        OptionId = 320;
+        IsSHRRole = false;
+        OptionType = CustomOptionType.Crewmate;
     }
 
-/** <summary>
-    画面を光らせる
-    </summary>
-    <param name="color">
-    (new Color("r値" / 255f, "g値" / 255f, "b値" / 255f))
-    あるいはUnityのcolorコード指定で色を選択
-    </param>
-    <param name="duration">
-    color色に画面を光らせはじめ、終わるまでの時間(duration/2秒時に指定色に光る)
-    </param>
-**/
-public static void ShowFlash(Color color, float duration = 1f)
-{
-    if (Renderer == null || FullScreenRenderer == null) return;
-    FullScreenRenderer.gameObject.SetActive(true);
-    FullScreenRenderer.enabled = true;
-    Renderer.StartCoroutine(Effects.Lerp(duration, new Action<float>((p) =>
-    {
-        if (p < 0.5)
-        {
-            if (FullScreenRenderer != null)
-            {
-                FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01(p * 2 * 0.75f));
-            }
-        }
-        else
-        {
-            if (FullScreenRenderer != null)
-            {
-                FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01((1 - p) * 2 * 0.75f));
-            }
-        }
-        if (p == 1f && FullScreenRenderer != null)
-        {
-            FullScreenRenderer.enabled = true;
-            FullScreenRenderer.gameObject.SetActive(false);
-            Logger.Info("発動待機状態に戻しました。", "SetActive(false)");
-        }
-    })));
-}
-private static Sprite SoulSprite;
-public static Sprite GetSoulSprite()
-{
-    if (SoulSprite) return SoulSprite;
-    SoulSprite = ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Soul.png", 500f);
-    return SoulSprite;
-}
-
-public static class WrapUpPatch
-{
-    public static void WrapUpPostfix()
+    public override void OnMeetingStart() { }
+    public override void OnWrapUp()
     {
         var role = PlayerControl.LocalPlayer.GetRole();
         if (role is RoleId.Seer or RoleId.MadSeer or RoleId.EvilSeer or RoleId.SeerFriends or RoleId.JackalSeer or RoleId.SidekickSeer)
@@ -79,11 +35,11 @@ public static class WrapUpPatch
             switch (role)
             {
                 case RoleId.Seer:
-                    DeadBodyPositions = RoleClass.Seer.deadBodyPositions;
-                    RoleClass.Seer.deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = RoleClass.Seer.limitSoulDuration;
-                    soulDuration = RoleClass.Seer.soulDuration;
-                    if (RoleClass.Seer.mode is not 0 and not 2) return;
+                    DeadBodyPositions = deadBodyPositions;
+                    deadBodyPositions = new List<Vector3>();
+                    limitSoulDuration = SeerLimitSoulDuration.GetBool();
+                    soulDuration = SeerSoulDuration.GetFloat();
+                    if (mode is not 0 and not 2) return;
                     break;
                 case RoleId.MadSeer:
                     DeadBodyPositions = RoleClass.MadSeer.deadBodyPositions;
@@ -139,6 +95,109 @@ public static class WrapUpPatch
             }
         }
     }
+    public override void FixedUpdate() { }
+    public override void MeFixedUpdateAlive() { }
+    public override void MeFixedUpdateDead() { }
+    public override void OnKill(PlayerControl target) { }
+    public override void OnDeath(PlayerControl killer = null) { }
+    public override void HandleDisconnect(PlayerControl player, DisconnectReasons reason) { }
+    public override void EndUseAbility() { }
+    public override void ResetRole() { }
+    public override void PostInit() { deadBodyPositions = new(); }
+    public override void UseAbility() { base.UseAbility(); AbilityLimit--; if (AbilityLimit <= 0) EndUseAbility(); }
+    public override bool CanUseAbility() { return base.CanUseAbility() && AbilityLimit <= 0; }
+
+    //ボタンが必要な場合のみ(Buttonsの方に記述する必要あり)
+    public static void MakeButtons(HudManager hm) { }
+    public static void SetButtonCooldowns() { }
+
+    // CustomOption Start
+    public static CustomOption SeerMode;
+    public static CustomOption SeerLimitSoulDuration;
+    public static CustomOption SeerSoulDuration;
+    //public static string[] SeerModeStrings = { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" };
+
+    public override void SetupMyOptions()
+    {
+        SeerMode = Create(OptionId, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
+        SeerLimitSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
+        SeerSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, SeerLimitSoulDuration, format: "unitCouples");
+    }
+    // CustomOption End
+
+    // RoleClass Start
+    public List<Vector3> deadBodyPositions
+    {
+        get { return ReplayData.CanReplayCheckPlayerView ? GetValueVector3("_deadBodyPositions") : _deadBodyPositions; }
+        set { if (ReplayData.CanReplayCheckPlayerView) SetValueVector3("_deadBodyPositions", value); else _deadBodyPositions = value; }
+    }
+    private List<Vector3> _deadBodyPositions;
+    public static int mode;
+
+    public static Sprite GetSoulSprite() => ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Soul.png", 500f);
+
+    public static void Clear()
+    {
+        players = new();
+        mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : SeerMode.GetSelection();
+    }
+
+    // RoleClass End
+
+    /*========== ShowFlash Start ==========*/
+
+    private static SpriteRenderer FullScreenRenderer;
+    private static HudManager Renderer;
+    public static void ShowFlash_ClearAndReload()
+    {
+        FullScreenRenderer = GameObject.Instantiate(FastDestroyableSingleton<HudManager>.Instance.FullScreen, FastDestroyableSingleton<HudManager>.Instance.transform);
+        Renderer = FastDestroyableSingleton<HudManager>.Instance;
+    }
+
+    /** <summary>
+        画面を光らせる
+        </summary>
+        <param name="color">
+        (new Color("r値" / 255f, "g値" / 255f, "b値" / 255f))
+        あるいはUnityのcolorコード指定で色を選択
+        </param>
+        <param name="duration">
+        color色に画面を光らせはじめ、終わるまでの時間(duration/2秒時に指定色に光る)
+        </param>
+    **/
+    public static void ShowFlash(Color color, float duration = 1f)
+    {
+        if (Renderer == null || FullScreenRenderer == null) return;
+        FullScreenRenderer.gameObject.SetActive(true);
+        FullScreenRenderer.enabled = true;
+        Renderer.StartCoroutine(Effects.Lerp(duration, new Action<float>((p) =>
+        {
+            if (p < 0.5)
+            {
+                if (FullScreenRenderer != null)
+                {
+                    FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01(p * 2 * 0.75f));
+                }
+            }
+            else
+            {
+                if (FullScreenRenderer != null)
+                {
+                    FullScreenRenderer.color = new Color(color.r, color.g, color.b, Mathf.Clamp01((1 - p) * 2 * 0.75f));
+                }
+            }
+            if (p == 1f && FullScreenRenderer != null)
+            {
+                FullScreenRenderer.enabled = true;
+                FullScreenRenderer.gameObject.SetActive(false);
+                Logger.Info("発動待機状態に戻しました。", "SetActive(false)");
+            }
+        })));
+    }
+
+    /*========== ShowFlash End ==========*/
+
+    /*========== Seers inherent ability Start ==========*/
 
     public static class MurderPlayerPatch
     {
@@ -151,8 +210,8 @@ public static class WrapUpPatch
                 switch (role)
                 {
                     case RoleId.Seer:
-                        if (RoleClass.Seer.deadBodyPositions != null) RoleClass.Seer.deadBodyPositions.Add(target.transform.position);
-                        ModeFlag = RoleClass.Seer.mode <= 1;
+                        if (local.deadBodyPositions != null) local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = mode <= 1;
                         break;
                     case RoleId.MadSeer:
                         if (RoleClass.MadSeer.deadBodyPositions != null) RoleClass.MadSeer.deadBodyPositions.Add(target.transform.position);
@@ -181,7 +240,7 @@ public static class WrapUpPatch
         public static void ShowFlash_SHR(PlayerControl target)
         {
             List<List<PlayerControl>> seers = new() {
-                    RoleClass.Seer.SeerPlayer,
+                    allPlayers,
                     RoleClass.EvilSeer.EvilSeerPlayer,
                     RoleClass.MadSeer.MadSeerPlayer,
                     RoleClass.JackalSeer.JackalSeerPlayer,
@@ -202,5 +261,6 @@ public static class WrapUpPatch
             }
         }
     }
-}
+
+    /*========== Seers inherent ability End ==========*/
 }

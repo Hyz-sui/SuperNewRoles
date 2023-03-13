@@ -456,15 +456,6 @@ public class CustomOptionHolder
     public static CustomOption DarkKillerPlayerCount;
     public static CustomOption DarkKillerKillCoolTime;
 
-    public static CustomRoleOption SeerOption;
-    public static CustomOption SeerPlayerCount;
-    public static CustomOption SeerMode;
-    public static CustomOption SeerModeBoth;
-    public static CustomOption SeerModeFlash;
-    public static CustomOption SeerModeSouls;
-    public static CustomOption SeerLimitSoulDuration;
-    public static CustomOption SeerSoulDuration;
-
     public static CustomRoleOption MadSeerOption;
     public static CustomOption MadSeerPlayerCount;
     public static CustomOption MadSeerMode;
@@ -1030,7 +1021,7 @@ public class CustomOptionHolder
         MadRolesCanFixComms = Create(984, true, CustomOptionType.Crewmate, "MadRolesCanFixComms", false, null);
         MadRolesCanFixElectrical = Create(985, true, CustomOptionType.Crewmate, "MadRolesCanFixElectrical", false, null);
         MadRolesCanVentMove = Create(1013, false, CustomOptionType.Crewmate, "MadRolesCanVentMove", false, null);
-        
+
         MeetingSheriffOption = SetupCustomRoleOption(723, false, RoleId.MeetingSheriff);
         MeetingSheriffPlayerCount = Create(724, false, CustomOptionType.Crewmate, Cs(Color.white, "SettingPlayerCountName"), CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], MeetingSheriffOption);
         MeetingSheriffKillMaxCount = Create(725, false, CustomOptionType.Crewmate, "MeetingSheriffMaxKillCountSetting", 1f, 1f, 20f, 1f, MeetingSheriffOption, format: "unitSeconds");
@@ -1423,11 +1414,6 @@ public class CustomOptionHolder
         DarkKillerPlayerCount = Create(316, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], DarkKillerOption);
         DarkKillerKillCoolTime = Create(317, true, CustomOptionType.Impostor, "DarkKillerKillCoolSetting", 20f, 2.5f, 60f, 2.5f, DarkKillerOption);
 
-        SeerOption = SetupCustomRoleOption(318, true, RoleId.Seer);
-        SeerPlayerCount = Create(319, true, CustomOptionType.Crewmate, "SettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], SeerOption);
-        SeerMode = Create(320, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, SeerOption);
-        SeerLimitSoulDuration = Create(321, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, SeerOption);
-        SeerSoulDuration = Create(322, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, SeerLimitSoulDuration, format: "unitCouples");
 
         EvilSeerOption = SetupCustomRoleOption(334, true, RoleId.EvilSeer);
         EvilSeerPlayerCount = Create(335, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], EvilSeerOption);

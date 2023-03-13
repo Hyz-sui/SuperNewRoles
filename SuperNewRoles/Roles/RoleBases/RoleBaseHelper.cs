@@ -29,6 +29,7 @@ public static class RoleBaseHelper
 
             //MadRoles
             { RoleId.Worshiper, typeof(RoleBase<Worshiper>) },
+            { RoleId.MadSeer, typeof(RoleBase<MadSeer>) },
 
             //FriendsRoles
 
@@ -48,6 +49,7 @@ public static class RoleBaseHelper
         new Sheriff().SetUpOption();
         new RemoteSheriff().SetUpOption();
         new Worshiper().SetUpOption();
+        new MadSeer().SetUpOption();
         new SoothSayer().SetUpOption();
         new Lighter().SetUpOption();
         new Seer().SetUpOption();

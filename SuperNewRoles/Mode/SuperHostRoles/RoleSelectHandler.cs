@@ -124,7 +124,7 @@ public static class RoleSelectHandler
         if (RoleClass.Tuna.IsUseVent) SetVanillaRole(RoleClass.Tuna.TunaPlayer, RoleTypes.Engineer);
         SetVanillaRole(RoleClass.Technician.TechnicianPlayer, RoleTypes.Engineer);
         if (RoleClass.BlackCat.IsUseVent) SetVanillaRole(RoleClass.BlackCat.BlackCatPlayer, RoleTypes.Engineer);
-        if (RoleClass.MadSeer.IsUseVent) SetVanillaRole(RoleClass.MadSeer.MadSeerPlayer, RoleTypes.Engineer);
+        if (MadSeer.CanUseVentS) SetVanillaRole(MadSeer.allPlayers, RoleTypes.Engineer);
         if (RoleClass.SeerFriends.IsUseVent) SetVanillaRole(RoleClass.SeerFriends.SeerFriendsPlayer, RoleTypes.Engineer);
         /*============エンジニアに役職設定============*/
 

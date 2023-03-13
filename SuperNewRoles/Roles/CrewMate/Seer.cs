@@ -4,6 +4,10 @@ using HarmonyLib;
 using SuperNewRoles.Mode;
 using SuperNewRoles.Mode.SuperHostRoles;
 using SuperNewRoles.ReplayManager;
+using SuperNewRoles.Roles.Crewmate;
+using SuperNewRoles.Roles.Impostor;
+using SuperNewRoles.Roles.Impostor.MadRole;
+using SuperNewRoles.Roles.Neutral;
 using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
 using static SuperNewRoles.Modules.CustomOption;
@@ -40,13 +44,6 @@ public class Seer : RoleBase<Seer>
                     limitSoulDuration = SeerLimitSoulDuration.GetBool();
                     soulDuration = SeerSoulDuration.GetFloat();
                     if (mode is not 0 and not 2) return;
-                    break;
-                case RoleId.MadSeer:
-                    DeadBodyPositions = RoleClass.MadSeer.deadBodyPositions;
-                    RoleClass.MadSeer.deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = RoleClass.MadSeer.limitSoulDuration;
-                    soulDuration = RoleClass.MadSeer.soulDuration;
-                    if (RoleClass.MadSeer.mode is not 0 and not 2) return;
                     break;
                 case RoleId.EvilSeer:
                     DeadBodyPositions = RoleClass.EvilSeer.deadBodyPositions;
@@ -213,8 +210,8 @@ public class Seer : RoleBase<Seer>
                         ModeFlag = mode <= 1;
                         break;
                     case RoleId.MadSeer:
-                        if (RoleClass.MadSeer.deadBodyPositions != null) RoleClass.MadSeer.deadBodyPositions.Add(target.transform.position);
-                        ModeFlag = RoleClass.MadSeer.mode <= 1;
+                        if (MadSeer.local.deadBodyPositions != null) MadSeer.local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = MadSeer.mode <= 1;
                         break;
                     case RoleId.EvilSeer:
                         if (RoleClass.EvilSeer.deadBodyPositions != null) RoleClass.EvilSeer.deadBodyPositions.Add(target.transform.position);
@@ -241,7 +238,7 @@ public class Seer : RoleBase<Seer>
             List<List<PlayerControl>> seers = new() {
                     allPlayers,
                     RoleClass.EvilSeer.EvilSeerPlayer,
-                    RoleClass.MadSeer.MadSeerPlayer,
+                    MadSeer.allPlayers,
                     RoleClass.JackalSeer.JackalSeerPlayer,
                     RoleClass.SeerFriends.SeerFriendsPlayer
                 };

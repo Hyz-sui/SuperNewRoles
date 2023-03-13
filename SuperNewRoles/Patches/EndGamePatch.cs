@@ -588,7 +588,7 @@ public static class OnGameEndPatch
             RoleClass.MadStuntMan.MadStuntManPlayer,
             RoleClass.MadHawk.MadHawkPlayer,
             RoleClass.MadJester.MadJesterPlayer,
-            RoleClass.MadSeer.MadSeerPlayer,
+            MadSeer.allPlayers,
             RoleClass.FalseCharges.FalseChargesPlayer,
             Fox.allPlayers,
             BotManager.AllBots,

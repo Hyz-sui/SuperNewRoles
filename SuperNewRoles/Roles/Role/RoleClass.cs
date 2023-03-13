@@ -152,7 +152,7 @@ public static class RoleClass
         DarkKiller.ClearAndReload();
         Seer.Clear();
         Seer.ShowFlash_ClearAndReload();
-        MadSeer.ClearAndReload();
+        MadSeer.Clear();
         EvilSeer.ClearAndReload();
         RemoteSheriff.Clear();
         TeleportingJackal.ClearAndReload();
@@ -1492,45 +1492,7 @@ public static class RoleClass
             KillButtonDisable = false;
         }
     }
-    public static class MadSeer
-    {
-        public static List<PlayerControl> MadSeerPlayer;
-        public static Color color = ImpostorRed;
-        public static List<Vector3> deadBodyPositions;
 
-        public static float soulDuration;
-        public static bool limitSoulDuration;
-        public static int mode;
-
-        public static bool IsUseVent;
-        public static bool IsImpostorLight;
-        public static bool IsImpostorCheck;
-        public static int ImpostorCheckTask;
-
-        public static void ClearAndReload()
-        {
-            MadSeerPlayer = new();
-            deadBodyPositions = new();
-            limitSoulDuration = CustomOptionHolder.MadSeerLimitSoulDuration.GetBool();
-            soulDuration = CustomOptionHolder.MadSeerSoulDuration.GetFloat();
-            mode = Mode.ModeHandler.IsMode(Mode.ModeId.SuperHostRoles) ? 1 : CustomOptionHolder.MadSeerMode.GetSelection();
-
-            IsImpostorCheck = CustomOptionHolder.MadSeerIsCheckImpostor.GetBool();
-            IsUseVent = CustomOptionHolder.MadSeerIsUseVent.GetBool();
-            IsImpostorLight = CustomOptionHolder.MadSeerIsImpostorLight.GetBool();
-            int Common = CustomOptionHolder.MadSeerCommonTask.GetInt();
-            int Long = CustomOptionHolder.MadSeerLongTask.GetInt();
-            int Short = CustomOptionHolder.MadSeerShortTask.GetInt();
-            int AllTask = Common + Long + Short;
-            if (AllTask == 0)
-            {
-                Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
-                Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
-                Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
-            }
-            ImpostorCheckTask = (int)(AllTask * (int.Parse(CustomOptionHolder.MadSeerCheckImpostorTask.GetString().Replace("%", "")) / 100f));
-        }
-    }
     public static class EvilSeer
     {
         public static List<PlayerControl> EvilSeerPlayer;

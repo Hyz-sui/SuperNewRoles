@@ -456,22 +456,6 @@ public class CustomOptionHolder
     public static CustomOption DarkKillerPlayerCount;
     public static CustomOption DarkKillerKillCoolTime;
 
-    public static CustomRoleOption MadSeerOption;
-    public static CustomOption MadSeerPlayerCount;
-    public static CustomOption MadSeerMode;
-    public static CustomOption MadSeerModeBoth;
-    public static CustomOption MadSeerModeFlash;
-    public static CustomOption MadSeerModeSouls;
-    public static CustomOption MadSeerLimitSoulDuration;
-    public static CustomOption MadSeerSoulDuration;
-    public static CustomOption MadSeerIsCheckImpostor;
-    public static CustomOption MadSeerCommonTask;
-    public static CustomOption MadSeerShortTask;
-    public static CustomOption MadSeerLongTask;
-    public static CustomOption MadSeerCheckImpostorTask;
-    public static CustomOption MadSeerIsUseVent;
-    public static CustomOption MadSeerIsImpostorLight;
-
     public static CustomRoleOption EvilSeerOption;
     public static CustomOption EvilSeerPlayerCount;
     public static CustomOption EvilSeerMode;
@@ -1085,20 +1069,6 @@ public class CustomOptionHolder
         MadMayorCheckImpostorTask = Create(276, true, CustomOptionType.Crewmate, "MadMayorCheckImpostorTaskSetting", rates4, MadMayorIsCheckImpostor);
         MadMayorIsUseVent = Create(277, true, CustomOptionType.Crewmate, "MadMayorUseVentSetting", false, MadMayorOption);
         MadMayorIsImpostorLight = Create(278, true, CustomOptionType.Crewmate, "MadMayorImpostorLightSetting", false, MadMayorOption);
-
-        MadSeerOption = SetupCustomRoleOption(323, true, RoleId.MadSeer);
-        MadSeerPlayerCount = Create(324, true, CustomOptionType.Crewmate, "SettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], MadSeerOption);
-        MadSeerMode = Create(325, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, MadSeerOption);
-        MadSeerLimitSoulDuration = Create(326, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, MadSeerOption);
-        MadSeerSoulDuration = Create(327, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, MadSeerLimitSoulDuration, format: "unitCouples");
-        MadSeerIsUseVent = Create(328, true, CustomOptionType.Crewmate, "MadmateUseVentSetting", false, MadSeerOption);
-        MadSeerIsImpostorLight = Create(329, true, CustomOptionType.Crewmate, "MadmateImpostorLightSetting", false, MadSeerOption);
-        MadSeerIsCheckImpostor = Create(330, true, CustomOptionType.Crewmate, "MadmateIsCheckImpostorSetting", false, MadSeerOption);
-        var madseeroption = SelectTask.TaskSetting(331, 332, 526, MadSeerIsCheckImpostor, CustomOptionType.Crewmate, true);
-        MadSeerCommonTask = madseeroption.Item1;
-        MadSeerShortTask = madseeroption.Item2;
-        MadSeerLongTask = madseeroption.Item3;
-        MadSeerCheckImpostorTask = Create(333, true, CustomOptionType.Crewmate, "MadmateCheckImpostorTaskSetting", rates4, MadSeerIsCheckImpostor);
 
         MadMakerOption = SetupCustomRoleOption(347, true, RoleId.MadMaker);
         MadMakerPlayerCount = Create(348, true, CustomOptionType.Crewmate, "SettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], MadMakerOption);

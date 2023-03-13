@@ -44,7 +44,7 @@ class CoEnterVent
                 if (RoleClass.Samurai.UseVent) return true;
                 break;
             case RoleId.MadSeer:
-                if (RoleClass.MadSeer.IsUseVent) return true;
+                if (MadSeer.CanUseVentS) return true;
                 break;
             case RoleId.SeerFriends:
                 if (RoleClass.SeerFriends.IsUseVent) return true;

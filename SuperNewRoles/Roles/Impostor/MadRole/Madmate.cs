@@ -27,8 +27,8 @@ class Madmate
                 CheckTask = RoleClass.MadJester.ImpostorCheckTask;
                 break;
             case RoleId.MadSeer:
-                if (!RoleClass.MadSeer.IsImpostorCheck) return false;
-                CheckTask = RoleClass.MadSeer.ImpostorCheckTask;
+                if (!MadSeer.IsImpostorCheck) return false;
+                CheckTask = MadSeer.ImpostorCheckTask;
                 break;
             case RoleId.BlackCat:
                 if (!RoleClass.BlackCat.IsImpostorCheck) return false;

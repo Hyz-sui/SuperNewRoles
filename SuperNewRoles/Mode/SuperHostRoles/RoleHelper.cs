@@ -39,7 +39,7 @@ public static class RoleHelper
             RoleId.Fox => Fox.IsImpostorViewOption.GetBool(),
             RoleId.MayorFriends => RoleClass.MayorFriends.IsImpostorLight,
             RoleId.BlackCat => RoleClass.BlackCat.IsImpostorLight,
-            RoleId.MadSeer => RoleClass.MadSeer.IsImpostorLight,
+            RoleId.MadSeer => MadSeer.IsImpostorViewS,
             RoleId.SeerFriends => RoleClass.SeerFriends.IsImpostorLight,
             _ => false,
         };
@@ -77,7 +77,7 @@ public static class RoleHelper
             case RoleId.Arsonist:
                 return RoleClass.Arsonist.IsUseVent;
             case RoleId.MadSeer:
-                return RoleClass.MadSeer.IsUseVent;
+                return MadSeer.CanUseVentS;
             case RoleId.SeerFriends:
                 return RoleClass.SeerFriends.IsUseVent;
                 //ベント無限か

@@ -606,9 +606,6 @@ public static class RoleHelpers
             case RoleId.DarkKiller:
                 RoleClass.DarkKiller.DarkKillerPlayer.Add(player);
                 break;
-            case RoleId.MadSeer:
-                RoleClass.MadSeer.MadSeerPlayer.Add(player);
-                break;
             case RoleId.EvilSeer:
                 RoleClass.EvilSeer.EvilSeerPlayer.Add(player);
                 break;
@@ -1113,9 +1110,6 @@ public static class RoleHelpers
             case RoleId.DarkKiller:
                 RoleClass.DarkKiller.DarkKillerPlayer.RemoveAll(ClearRemove);
                 break;
-            case RoleId.MadSeer:
-                RoleClass.MadSeer.MadSeerPlayer.RemoveAll(ClearRemove);
-                break;
             case RoleId.EvilSeer:
                 RoleClass.EvilSeer.EvilSeerPlayer.RemoveAll(ClearRemove);
                 break;
@@ -1424,7 +1418,7 @@ public static class RoleHelpers
             RoleId.MadJester => RoleClass.MadJester.IsUseVent,
             RoleId.MadStuntMan => RoleClass.MadStuntMan.IsUseVent,
             RoleId.MadHawk => RoleClass.MadHawk.IsUseVent,
-            RoleId.MadSeer => RoleClass.MadSeer.IsUseVent,
+            RoleId.MadSeer => MadSeer.CanUseVentS,
             RoleId.MadMaker => RoleClass.MadMaker.IsUseVent,
             RoleId.Fox => Fox.CanUseVentOption.GetBool(),
             RoleId.Demon => RoleClass.Demon.IsUseVent,
@@ -1519,7 +1513,7 @@ public static class RoleHelpers
                 RoleId.MadStuntMan => RoleClass.MadStuntMan.IsImpostorLight,
                 RoleId.MadHawk => RoleClass.MadHawk.IsImpostorLight,
                 RoleId.MadJester => RoleClass.MadJester.IsImpostorLight,
-                RoleId.MadSeer => RoleClass.MadSeer.IsImpostorLight,
+                RoleId.MadSeer => MadSeer.IsImpostorViewS,
                 RoleId.Fox => Fox.IsImpostorViewOption.GetBool(),
                 RoleId.TeleportingJackal => RoleClass.TeleportingJackal.IsImpostorLight,
                 RoleId.MadMaker => RoleClass.MadMaker.IsImpostorLight,
@@ -1720,7 +1714,6 @@ public static class RoleHelpers
             else if (RoleClass.Observer.ObserverPlayer.IsCheckListPlayerControl(player)) return RoleId.Observer;
             else if (RoleClass.Vampire.VampirePlayer.IsCheckListPlayerControl(player)) return RoleId.Vampire;
             else if (RoleClass.DarkKiller.DarkKillerPlayer.IsCheckListPlayerControl(player)) return RoleId.DarkKiller;
-            else if (RoleClass.MadSeer.MadSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.MadSeer;
             else if (RoleClass.EvilSeer.EvilSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.EvilSeer;
             else if (RoleClass.TeleportingJackal.TeleportingJackalPlayer.IsCheckListPlayerControl(player)) return RoleId.TeleportingJackal;
             else if (RoleClass.MadMaker.MadMakerPlayer.IsCheckListPlayerControl(player)) return RoleId.MadMaker;

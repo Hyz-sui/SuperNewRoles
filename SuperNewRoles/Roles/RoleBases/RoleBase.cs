@@ -80,7 +80,7 @@ public abstract class RoleBase<T> : Role where T : RoleBase<T>, new()
     public float DurationTime => DurationTimeOpt is null ? -1f : DurationTimeOpt.GetFloat();
     public static bool CanUseVentS => CanUseVentOption is null ? false : CanUseVentOption.GetBool();
     public static bool CanUseSaboS => CanUseSaboOption is null ? false : CanUseSaboOption.GetBool();
-    public static bool IsImpostorViewS => CanUseSaboOption is null ? false : CanUseSaboOption.GetBool();
+    public static bool IsImpostorViewS => IsImpostorViewOption is null ? false : IsImpostorViewOption.GetBool();
     public static float CoolTimeS => CoolTimeOption is null ? -1f : CoolTimeOption.GetFloat();
     public static float DurationTimeS => DurationTimeOption is null ? -1f : DurationTimeOption.GetFloat();
 

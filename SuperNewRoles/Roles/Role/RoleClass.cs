@@ -1529,7 +1529,6 @@ public static class RoleClass
                 Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
             }
             ImpostorCheckTask = (int)(AllTask * (int.Parse(CustomOptionHolder.MadSeerCheckImpostorTask.GetString().Replace("%", "")) / 100f));
-            Roles.MadSeer.CheckedImpostor = new();
         }
     }
     public static class EvilSeer

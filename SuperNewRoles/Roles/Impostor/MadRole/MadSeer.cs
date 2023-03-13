@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using SuperNewRoles.Mode;
 using SuperNewRoles.ReplayManager;
 using SuperNewRoles.Patches;
-using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
 using static SuperNewRoles.Roles.Crewmate.Seer;
@@ -27,7 +26,6 @@ public class MadSeer : RoleBase<MadSeer>
         CanUseVentOptionDefault = false;
         IsImpostorViewOptionOn = true;
         IsImpostorViewOptionDefault = false;
-        CoolTimeOptionOn = true;
     }
 
     public override void OnMeetingStart() { }
@@ -95,7 +93,7 @@ public class MadSeer : RoleBase<MadSeer>
     {
         MadSeerMode = Create(OptionId, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
         MadSeerLimitSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
-        MadSeerSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, MadSeerLimitSoulDuration, format: "unitCouples");
+        MadSeerSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, MadSeerLimitSoulDuration, format: "unitCouples");OptionId++;
         MadSeerIsCheckImpostor = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateIsCheckImpostorSetting", false, RoleOption); OptionId++;
         var MadSeeroption = SelectTask.TaskSetting(OptionId, OptionId + 1, OptionId + 2, MadSeerIsCheckImpostor, CustomOptionType.Crewmate, true); OptionId += 3;
         MadSeerCommonTask = MadSeeroption.Item1;

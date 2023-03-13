@@ -6,6 +6,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles.Roles.RoleBases;
 public static class RoleBaseHelper
@@ -33,6 +34,7 @@ public static class RoleBaseHelper
             { RoleId.MadSeer, typeof(RoleBase<MadSeer>) },
 
             //FriendsRoles
+            { RoleId.SeerFriends, typeof(RoleBase<SeerFriends>) },
 
             // Other
         };
@@ -52,6 +54,7 @@ public static class RoleBaseHelper
         new RemoteSheriff().SetUpOption();
         new Worshiper().SetUpOption();
         new MadSeer().SetUpOption();
+        new SeerFriends().SetUpOption();
         new SoothSayer().SetUpOption();
         new Lighter().SetUpOption();
         new Seer().SetUpOption();

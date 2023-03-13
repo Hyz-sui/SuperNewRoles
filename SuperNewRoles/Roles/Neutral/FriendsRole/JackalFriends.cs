@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using SuperNewRoles.Patches;
+using SuperNewRoles.Roles;
 
 namespace SuperNewRoles.Roles;
 
@@ -18,8 +19,8 @@ class JackalFriends
                 CheckTask = RoleClass.JackalFriends.JackalCheckTask;
                 break;
             case RoleId.SeerFriends:
-                if (!RoleClass.SeerFriends.IsJackalCheck) return false;
-                CheckTask = RoleClass.SeerFriends.JackalCheckTask;
+                if (!Neutral.FriendRoles.SeerFriends.SeerFriendsIsCheckJackal.GetBool()) return false;
+                CheckTask = Neutral.FriendRoles.SeerFriends.JackalCheckTask;
                 break;
             case RoleId.MayorFriends:
                 if (!RoleClass.MayorFriends.IsJackalCheck) return false;

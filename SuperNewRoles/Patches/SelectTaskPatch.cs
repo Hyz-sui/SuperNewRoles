@@ -7,6 +7,7 @@ using SuperNewRoles.Roles;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 using static SuperNewRoles.Modules.CustomOptionHolder;
 
@@ -47,7 +48,7 @@ public static class SelectTask
         if (MadSeer.MadSeerIsCheckImpostor.GetBool()) taskData.Add(RoleId.MadSeer, (MadSeer.MadSeerCommonTask.GetInt(), MadSeer.MadSeerShortTask.GetInt(), MadSeer.MadSeerLongTask.GetInt()));
         if (BlackCatIsCheckImpostor.GetBool()) taskData.Add(RoleId.BlackCat, (BlackCatCommonTask.GetInt(), BlackCatShortTask.GetInt(), BlackCatLongTask.GetInt()));
         if (JackalFriendsIsCheckJackal.GetBool()) taskData.Add(RoleId.JackalFriends, (JackalFriendsCommonTask.GetInt(), JackalFriendsShortTask.GetInt(), JackalFriendsLongTask.GetInt()));
-        if (SeerFriendsIsCheckJackal.GetBool()) taskData.Add(RoleId.SeerFriends, (SeerFriendsCommonTask.GetInt(), SeerFriendsShortTask.GetInt(), SeerFriendsLongTask.GetInt()));
+        if (SeerFriends.SeerFriendsIsCheckJackal.GetBool()) taskData.Add(RoleId.SeerFriends, (SeerFriends.SeerFriendsCommonTask.GetInt(), SeerFriends.SeerFriendsShortTask.GetInt(), SeerFriends.SeerFriendsLongTask.GetInt()));
         if (MayorFriendsIsCheckJackal.GetBool()) taskData.Add(RoleId.MayorFriends, (MayorFriendsCommonTask.GetInt(), MayorFriendsShortTask.GetInt(), MayorFriendsLongTask.GetInt()));
         if (Jester.JesterIsWinCleartask.GetBool()) taskData.Add(RoleId.Jester, (Jester.JesterCommonTask.GetInt(), Jester.JesterShortTask.GetInt(), Jester.JesterLongTask.GetInt()));
         if (IsMadJesterTaskClearWin.GetBool() || MadJesterCheckImpostorTask.GetBool()) taskData.Add(RoleId.MadJester, (MadJesterCommonTask.GetInt(), MadJesterShortTask.GetInt(), MadJesterLongTask.GetInt()));

@@ -8,6 +8,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
 using static SuperNewRoles.Modules.CustomOption;
@@ -44,13 +45,6 @@ public class Seer : RoleBase<Seer>
                     limitSoulDuration = SeerLimitSoulDuration.GetBool();
                     soulDuration = SeerSoulDuration.GetFloat();
                     if (mode is not 0 and not 2) return;
-                    break;
-                case RoleId.SeerFriends:
-                    DeadBodyPositions = RoleClass.SeerFriends.deadBodyPositions;
-                    RoleClass.SeerFriends.deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = RoleClass.SeerFriends.limitSoulDuration;
-                    soulDuration = RoleClass.SeerFriends.soulDuration;
-                    if (RoleClass.SeerFriends.mode is not 0 and not 2) return;
                     break;
                 case RoleId.JackalSeer:
                 case RoleId.SidekickSeer:
@@ -211,8 +205,8 @@ public class Seer : RoleBase<Seer>
                         ModeFlag = EvilSeer.mode <= 1;
                         break;
                     case RoleId.SeerFriends:
-                        if (RoleClass.SeerFriends.deadBodyPositions != null) RoleClass.SeerFriends.deadBodyPositions.Add(target.transform.position);
-                        ModeFlag = RoleClass.SeerFriends.mode <= 1;
+                        if (SeerFriends.local.deadBodyPositions != null) SeerFriends.local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = SeerFriends.mode <= 1;
                         break;
                     case RoleId.JackalSeer:
                     case RoleId.SidekickSeer:
@@ -232,8 +226,8 @@ public class Seer : RoleBase<Seer>
                     allPlayers,
                     MadSeer.allPlayers,
                     EvilSeer.allPlayers,
+                    SeerFriends.allPlayers,
                     RoleClass.JackalSeer.JackalSeerPlayer,
-                    RoleClass.SeerFriends.SeerFriendsPlayer
                 };
             foreach (var p in seers)
             {

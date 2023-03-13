@@ -489,22 +489,6 @@ public class CustomOptionHolder
     public static CustomOption ArsonistDurationTime;
     public static CustomOption ArsonistIsUseVent;
 
-    public static CustomRoleOption SeerFriendsOption;
-    public static CustomOption SeerFriendsPlayerCount;
-    public static CustomOption SeerFriendsMode;
-    public static CustomOption SeerFriendsModeBoth;
-    public static CustomOption SeerFriendsModeFlash;
-    public static CustomOption SeerFriendsModeSouls;
-    public static CustomOption SeerFriendsLimitSoulDuration;
-    public static CustomOption SeerFriendsSoulDuration;
-    public static CustomOption SeerFriendsIsCheckJackal;
-    public static CustomOption SeerFriendsCommonTask;
-    public static CustomOption SeerFriendsShortTask;
-    public static CustomOption SeerFriendsLongTask;
-    public static CustomOption SeerFriendsCheckJackalTask;
-    public static CustomOption SeerFriendsIsUseVent;
-    public static CustomOption SeerFriendsIsImpostorLight;
-
     public static CustomRoleOption PositionSwapperOption;
     public static CustomOption PositionSwapperPlayerCount;
     public static CustomOption PositionSwapperSwapCount;
@@ -1396,20 +1380,6 @@ public class CustomOptionHolder
         TaskManagerCommonTask = taskmanageroption.Item1;
         TaskManagerShortTask = taskmanageroption.Item2;
         TaskManagerLongTask = taskmanageroption.Item3;
-
-        SeerFriendsOption = SetupCustomRoleOption(362, true, RoleId.SeerFriends);
-        SeerFriendsPlayerCount = Create(363, true, CustomOptionType.Crewmate, "SettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], SeerFriendsOption);
-        SeerFriendsMode = Create(364, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, SeerFriendsOption);
-        SeerFriendsLimitSoulDuration = Create(365, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, SeerFriendsOption);
-        SeerFriendsSoulDuration = Create(366, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, SeerFriendsLimitSoulDuration, format: "unitCouples");
-        SeerFriendsIsUseVent = Create(367, true, CustomOptionType.Crewmate, "MadmateUseVentSetting", false, SeerFriendsOption);
-        SeerFriendsIsImpostorLight = Create(368, true, CustomOptionType.Crewmate, "MadmateImpostorLightSetting", false, SeerFriendsOption);
-        SeerFriendsIsCheckJackal = Create(369, true, CustomOptionType.Crewmate, "JackalFriendsIsCheckJackalSetting", false, SeerFriendsOption);
-        var SeerFriendsoption = SelectTask.TaskSetting(371, 372, 373, SeerFriendsIsCheckJackal, CustomOptionType.Crewmate, true);
-        SeerFriendsCommonTask = SeerFriendsoption.Item1;
-        SeerFriendsShortTask = SeerFriendsoption.Item2;
-        SeerFriendsLongTask = SeerFriendsoption.Item3;
-        SeerFriendsCheckJackalTask = Create(374, true, CustomOptionType.Crewmate, "MadmateCheckImpostorTaskSetting", rates4, SeerFriendsIsCheckJackal);
 
         JackalSeerOption = SetupCustomRoleOption(375, true, RoleId.JackalSeer);
         JackalSeerPlayerCount = Create(376, true, CustomOptionType.Neutral, "SettingPlayerCountName", CrewPlayers[0], CrewPlayers[1], CrewPlayers[2], CrewPlayers[3], JackalSeerOption);

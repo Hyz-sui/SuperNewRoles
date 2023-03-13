@@ -11,6 +11,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using SuperNewRoles.Roles.RoleBases;
 using UnityEngine;
 
@@ -618,9 +619,6 @@ public static class RoleHelpers
             case RoleId.TaskManager:
                 RoleClass.TaskManager.TaskManagerPlayer.Add(player);
                 break;
-            case RoleId.SeerFriends:
-                RoleClass.SeerFriends.SeerFriendsPlayer.Add(player);
-                break;
             case RoleId.JackalSeer:
                 RoleClass.JackalSeer.JackalSeerPlayer.Add(player);
                 break;
@@ -1119,12 +1117,6 @@ public static class RoleHelpers
             case RoleId.TaskManager:
                 RoleClass.TaskManager.TaskManagerPlayer.RemoveAll(ClearRemove);
                 break;
-            case RoleId.SeerFriends:
-                RoleClass.SeerFriends.SeerFriendsPlayer.RemoveAll(ClearRemove);
-                break;
-            case RoleId.JackalSeer:
-                RoleClass.JackalSeer.JackalSeerPlayer.RemoveAll(ClearRemove);
-                break;
             case RoleId.SidekickSeer:
                 RoleClass.JackalSeer.SidekickSeerPlayer.RemoveAll(ClearRemove);
                 break;
@@ -1416,7 +1408,7 @@ public static class RoleHelpers
             RoleId.MadMaker => RoleClass.MadMaker.IsUseVent,
             RoleId.Fox => Fox.CanUseVentOption.GetBool(),
             RoleId.Demon => RoleClass.Demon.IsUseVent,
-            RoleId.SeerFriends => RoleClass.SeerFriends.IsUseVent,
+            RoleId.SeerFriends => SeerFriends.CanUseVentS,
             RoleId.JackalSeer or RoleId.SidekickSeer => RoleClass.JackalSeer.IsUseVent,
             RoleId.MadCleaner => RoleClass.MadCleaner.IsUseVent,
             RoleId.Arsonist => RoleClass.Arsonist.IsUseVent,
@@ -1513,7 +1505,7 @@ public static class RoleHelpers
                 RoleId.MadMaker => RoleClass.MadMaker.IsImpostorLight,
                 RoleId.Jackal or RoleId.Sidekick => RoleClass.Jackal.IsImpostorLight,
                 RoleId.JackalFriends => RoleClass.JackalFriends.IsImpostorLight,
-                RoleId.SeerFriends => RoleClass.SeerFriends.IsImpostorLight,
+                RoleId.SeerFriends => SeerFriends.IsImpostorViewS,
                 RoleId.JackalSeer or RoleId.SidekickSeer => RoleClass.JackalSeer.IsImpostorLight,
                 RoleId.MadCleaner => RoleClass.MadCleaner.IsImpostorLight,
                 RoleId.MayorFriends => RoleClass.MayorFriends.IsImpostorLight,
@@ -1712,12 +1704,10 @@ public static class RoleHelpers
             else if (RoleClass.MadMaker.MadMakerPlayer.IsCheckListPlayerControl(player)) return RoleId.MadMaker;
             else if (RoleClass.Demon.DemonPlayer.IsCheckListPlayerControl(player)) return RoleId.Demon;
             else if (RoleClass.TaskManager.TaskManagerPlayer.IsCheckListPlayerControl(player)) return RoleId.TaskManager;
-            else if (RoleClass.SeerFriends.SeerFriendsPlayer.IsCheckListPlayerControl(player)) return RoleId.SeerFriends;
             else if (RoleClass.JackalSeer.JackalSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.JackalSeer;
             else if (RoleClass.JackalSeer.SidekickSeerPlayer.IsCheckListPlayerControl(player)) return RoleId.SidekickSeer;
             else if (RoleClass.Assassin.AssassinPlayer.IsCheckListPlayerControl(player)) return RoleId.Assassin;
             else if (RoleClass.Marlin.MarlinPlayer.IsCheckListPlayerControl(player)) return RoleId.Marlin;
-            else if (RoleClass.SeerFriends.SeerFriendsPlayer.IsCheckListPlayerControl(player)) return RoleId.SeerFriends;
             else if (RoleClass.Arsonist.ArsonistPlayer.IsCheckListPlayerControl(player)) return RoleId.Arsonist;
             else if (RoleClass.Chief.ChiefPlayer.IsCheckListPlayerControl(player)) return RoleId.Chief;
             else if (RoleClass.Cleaner.CleanerPlayer.IsCheckListPlayerControl(player)) return RoleId.Cleaner;

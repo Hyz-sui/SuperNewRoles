@@ -10,17 +10,17 @@ using static SuperNewRoles.Roles.Crewmate.Seer;
 using static SuperNewRoles.Modules.CustomOption;
 using static SuperNewRoles.Modules.CustomOptionHolder;
 
-namespace SuperNewRoles.Roles.Impostor.MadRole;
+namespace SuperNewRoles.Roles.Neutral.FriendRoles;
 
-public class MadSeer : RoleBase<MadSeer>
+public class SeerFriends : RoleBase<SeerFriends>
 {
-    public static Color color = RoleClass.ImpostorRed;
+    public static Color color = RoleClass.JackalBlue;
 
-    public MadSeer()
+    public SeerFriends()
     {
-        RoleId = roleId = RoleId.MadSeer;
+        RoleId = roleId = RoleId.SeerFriends;
         //以下いるもののみ変更
-        OptionId = 323;
+        OptionId = 362;
         IsSHRRole = true;
         OptionType = CustomOptionType.Crewmate;
         CanUseVentOptionOn = true;
@@ -38,7 +38,7 @@ public class MadSeer : RoleBase<MadSeer>
 
         DeadBodyPositions = deadBodyPositions;
         deadBodyPositions = new List<Vector3>();
-        limitSoulDuration = MadSeerLimitSoulDuration.GetBool();
+        limitSoulDuration = SeerFriendsLimitSoulDuration.GetBool();
         soulDuration = SeerSoulDuration.GetFloat();
         if (mode is not 0 and not 2) return;
 
@@ -82,25 +82,26 @@ public class MadSeer : RoleBase<MadSeer>
     public static void SetButtonCooldowns() { }
 
     // CustomOption Start
-    public static CustomOption MadSeerMode;
-    public static CustomOption MadSeerLimitSoulDuration;
-    public static CustomOption MadSeerSoulDuration;
-    public static CustomOption MadSeerIsCheckImpostor;
-    public static CustomOption MadSeerCommonTask;
-    public static CustomOption MadSeerShortTask;
-    public static CustomOption MadSeerLongTask;
-    public static CustomOption MadSeerCheckImpostorTask;
+    public static CustomOption SeerFriendsMode;
+    public static CustomOption SeerFriendsLimitSoulDuration;
+    public static CustomOption SeerFriendsSoulDuration;
+    public static CustomOption SeerFriendsIsCheckJackal;
+    public static CustomOption SeerFriendsCommonTask;
+    public static CustomOption SeerFriendsShortTask;
+    public static CustomOption SeerFriendsLongTask;
+    public static CustomOption SeerFriendsCheckJackalTask;
     public override void SetupMyOptions()
     {
-        MadSeerMode = Create(OptionId, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
-        MadSeerLimitSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
-        MadSeerSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, MadSeerLimitSoulDuration, format: "unitCouples"); OptionId++;
-        MadSeerIsCheckImpostor = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateIsCheckImpostorSetting", false, RoleOption); OptionId++;
-        var MadSeeroption = SelectTask.TaskSetting(OptionId, OptionId + 1, OptionId + 2, MadSeerIsCheckImpostor, CustomOptionType.Crewmate, true); OptionId += 3;
-        MadSeerCommonTask = MadSeeroption.Item1;
-        MadSeerShortTask = MadSeeroption.Item2;
-        MadSeerLongTask = MadSeeroption.Item3;
-        MadSeerCheckImpostorTask = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateCheckImpostorTaskSetting", rates4, MadSeerIsCheckImpostor);
+        SeerFriendsMode = Create(OptionId, false, CustomOptionType.Crewmate, "SeerMode", new string[] { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" }, RoleOption); OptionId++;
+        SeerFriendsLimitSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerLimitSoulDuration", false, RoleOption); OptionId++;
+        SeerFriendsSoulDuration = Create(OptionId, false, CustomOptionType.Crewmate, "SeerSoulDuration", 15f, 0f, 120f, 5f, SeerFriendsLimitSoulDuration, format: "unitCouples"); OptionId++;
+        SeerFriendsIsCheckJackal = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "JackalFriendsIsCheckJackalSetting", false, RoleOption); OptionId++;
+        var SeerFriendsoption = SelectTask.TaskSetting(OptionId, OptionId + 1, OptionId + 2, SeerFriendsIsCheckJackal, CustomOptionType.Crewmate, true); OptionId += 3;
+        SeerFriendsCommonTask = SeerFriendsoption.Item1;
+        SeerFriendsShortTask = SeerFriendsoption.Item2;
+        SeerFriendsLongTask = SeerFriendsoption.Item3;
+        SeerFriendsCheckJackalTask = CustomOption.Create(OptionId, false, CustomOptionType.Crewmate, "MadmateCheckImpostorTaskSetting", rates4, SeerFriendsIsCheckJackal);
+
     }
     // CustomOption End
 
@@ -113,24 +114,24 @@ public class MadSeer : RoleBase<MadSeer>
     private List<Vector3> _deadBodyPositions;
     public static int mode;
 
-    public static int ImpostorCheckTask;
+    public static int JackalCheckTask;
 
     public static void Clear()
     {
         players = new();
-        mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : MadSeerMode.GetSelection();
+        mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : SeerFriendsMode.GetSelection();
 
-        int Common = MadSeerCommonTask.GetInt();
-        int Long = MadSeerLongTask.GetInt();
-        int Short = MadSeerShortTask.GetInt();
-        int AllTask = Common + Long + Short;
-        if (AllTask == 0)
-        {
-            Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
-            Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
-            Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
-        }
-        ImpostorCheckTask = (int)(AllTask * (int.Parse(MadSeerCheckImpostorTask.GetString().Replace("%", "")) / 100f));
+            int Common = SeerFriendsCommonTask.GetInt();
+            int Long = SeerFriendsLongTask.GetInt();
+            int Short = SeerFriendsShortTask.GetInt();
+            int AllTask = Common + Long + Short;
+            if (AllTask == 0)
+            {
+                Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
+                Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
+                Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
+            }
+            JackalCheckTask = (int)(AllTask * (int.Parse(SeerFriendsCheckJackalTask.GetString().Replace("%", "")) / 100f));
     }
 
     // RoleClass End

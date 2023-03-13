@@ -12,6 +12,7 @@ using SuperNewRoles.Roles.CrewMate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles;
 
@@ -1004,7 +1005,7 @@ class AllRoleSetClass
             RoleId.MadMaker => CustomOptionHolder.MadMakerPlayerCount.GetFloat(),
             RoleId.Demon => CustomOptionHolder.DemonPlayerCount.GetFloat(),
             RoleId.TaskManager => CustomOptionHolder.TaskManagerPlayerCount.GetFloat(),
-            RoleId.SeerFriends => CustomOptionHolder.SeerFriendsPlayerCount.GetFloat(),
+            RoleId.SeerFriends => SeerFriends.PlayerCountOption.GetFloat(),
             RoleId.JackalSeer => CustomOptionHolder.JackalSeerPlayerCount.GetFloat(),
             RoleId.Assassin => CustomOptionHolder.AssassinPlayerCount.GetFloat(),
             RoleId.Marlin => CustomOptionHolder.MarlinPlayerCount.GetFloat(),

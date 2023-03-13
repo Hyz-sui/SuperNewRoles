@@ -11,6 +11,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using SuperNewRoles.Roles.RoleBases;
 using SuperNewRoles.Sabotage;
 using TMPro;
@@ -159,7 +160,7 @@ public static class RoleClass
         MadMaker.ClearAndReload();
         Demon.ClearAndReload();
         TaskManager.ClearAndReload();
-        SeerFriends.ClearAndReload();
+        SeerFriends.Clear();
         JackalSeer.ClearAndReload();
         Assassin.ClearAndReload();
         Marlin.ClearAndReload();
@@ -1574,46 +1575,7 @@ public static class RoleClass
             }
         }
     }
-    public static class SeerFriends
-    {
-        public static List<PlayerControl> SeerFriendsPlayer;
-        public static Color32 color = JackalBlue;
 
-        public static List<Vector3> deadBodyPositions;
-
-        public static float soulDuration;
-        public static bool limitSoulDuration;
-        public static int mode;
-
-        public static bool IsUseVent;
-        public static bool IsImpostorLight;
-        public static bool IsJackalCheck;
-        public static int JackalCheckTask;
-        public static void ClearAndReload()
-        {
-            SeerFriendsPlayer = new();
-
-            deadBodyPositions = new();
-            limitSoulDuration = CustomOptionHolder.SeerFriendsLimitSoulDuration.GetBool();
-            soulDuration = CustomOptionHolder.SeerFriendsSoulDuration.GetFloat();
-            mode = Mode.ModeHandler.IsMode(Mode.ModeId.SuperHostRoles) ? 1 : CustomOptionHolder.SeerFriendsMode.GetSelection();
-
-            IsJackalCheck = CustomOptionHolder.SeerFriendsIsCheckJackal.GetBool();
-            IsUseVent = CustomOptionHolder.SeerFriendsIsUseVent.GetBool();
-            IsImpostorLight = CustomOptionHolder.SeerFriendsIsImpostorLight.GetBool();
-            int Common = CustomOptionHolder.SeerFriendsCommonTask.GetInt();
-            int Long = CustomOptionHolder.SeerFriendsLongTask.GetInt();
-            int Short = CustomOptionHolder.SeerFriendsShortTask.GetInt();
-            int AllTask = Common + Long + Short;
-            if (AllTask == 0)
-            {
-                Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
-                Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
-                Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
-            }
-            JackalCheckTask = (int)(AllTask * (int.Parse(CustomOptionHolder.SeerFriendsCheckJackalTask.GetString().Replace("%", "")) / 100f));
-        }
-    }
     public static class JackalSeer
     {
         public static List<PlayerControl> JackalSeerPlayer;

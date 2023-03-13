@@ -4,6 +4,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 
 namespace SuperNewRoles.Mode.SuperHostRoles;
@@ -47,7 +48,7 @@ class CoEnterVent
                 if (MadSeer.CanUseVentS) return true;
                 break;
             case RoleId.SeerFriends:
-                if (RoleClass.SeerFriends.IsUseVent) return true;
+                if (SeerFriends.CanUseVentS) return true;
                 break;
             case RoleId.Worshiper:
                 if (Worshiper.CanUseVentS) return true;

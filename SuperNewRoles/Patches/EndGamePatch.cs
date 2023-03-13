@@ -12,6 +12,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using UnhollowerBaseLib;
 using UnityEngine;
 using static SuperNewRoles.Patches.CheckGameEndPatch;
@@ -594,7 +595,7 @@ public static class OnGameEndPatch
             BotManager.AllBots,
             RoleClass.MadMaker.MadMakerPlayer,
             RoleClass.Demon.DemonPlayer,
-            RoleClass.SeerFriends.SeerFriendsPlayer,
+            SeerFriends.allPlayers,
             RoleClass.JackalSeer.JackalSeerPlayer,
             RoleClass.JackalSeer.SidekickSeerPlayer,
             RoleClass.Arsonist.ArsonistPlayer,

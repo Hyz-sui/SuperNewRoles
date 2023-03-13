@@ -3,6 +3,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles.Mode.SuperHostRoles;
 
@@ -40,7 +41,7 @@ public static class RoleHelper
             RoleId.MayorFriends => RoleClass.MayorFriends.IsImpostorLight,
             RoleId.BlackCat => RoleClass.BlackCat.IsImpostorLight,
             RoleId.MadSeer => MadSeer.IsImpostorViewS,
-            RoleId.SeerFriends => RoleClass.SeerFriends.IsImpostorLight,
+            RoleId.SeerFriends => SeerFriends.IsImpostorViewS,
             _ => false,
         };
     }
@@ -79,7 +80,7 @@ public static class RoleHelper
             case RoleId.MadSeer:
                 return MadSeer.CanUseVentS;
             case RoleId.SeerFriends:
-                return RoleClass.SeerFriends.IsUseVent;
+                return SeerFriends.CanUseVentS;
                 //ベント無限か
         }
         return IsZeroCoolEngineer;

@@ -7,6 +7,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using UnityEngine;
 
 namespace SuperNewRoles.Modules;
@@ -197,7 +198,7 @@ public class IntroData
     public static IntroData MadMakerIntro = new("MadMaker", RoleClass.MadMaker.color, 1, RoleId.MadMaker, IntroSound: RoleTypes.Impostor);
     public static IntroData DemonIntro = new("Demon", RoleClass.Demon.color, 1, RoleId.Demon, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData TaskManagerIntro = new("TaskManager", RoleClass.TaskManager.color, 1, RoleId.TaskManager);
-    public static IntroData SeerFriendsIntro = new("SeerFriends", RoleClass.SeerFriends.color, 1, RoleId.SeerFriends);
+    public static IntroData SeerFriendsIntro = new("SeerFriends", SeerFriends.color, 1, RoleId.SeerFriends);
     public static IntroData JackalSeerIntro = new("JackalSeer", RoleClass.JackalSeer.color, 1, RoleId.JackalSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData SidekickSeerIntro = new("SidekickSeer", RoleClass.JackalSeer.color, 1, RoleId.SidekickSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData AssassinIntro = new("Assassin", RoleClass.Assassin.color, 1, RoleId.Assassin, IntroSound: RoleTypes.Shapeshifter);

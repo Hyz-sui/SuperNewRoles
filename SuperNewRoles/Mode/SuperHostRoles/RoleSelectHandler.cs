@@ -5,6 +5,7 @@ using SuperNewRoles.Roles.Crewmate;
 using SuperNewRoles.Roles.Impostor;
 using SuperNewRoles.Roles.Impostor.MadRole;
 using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles.Mode.SuperHostRoles;
 
@@ -125,7 +126,7 @@ public static class RoleSelectHandler
         SetVanillaRole(RoleClass.Technician.TechnicianPlayer, RoleTypes.Engineer);
         if (RoleClass.BlackCat.IsUseVent) SetVanillaRole(RoleClass.BlackCat.BlackCatPlayer, RoleTypes.Engineer);
         if (MadSeer.CanUseVentS) SetVanillaRole(MadSeer.allPlayers, RoleTypes.Engineer);
-        if (RoleClass.SeerFriends.IsUseVent) SetVanillaRole(RoleClass.SeerFriends.SeerFriendsPlayer, RoleTypes.Engineer);
+        if (SeerFriends.CanUseVentS) SetVanillaRole(SeerFriends.allPlayers, RoleTypes.Engineer);
         /*============エンジニアに役職設定============*/
 
 

@@ -19,7 +19,7 @@ public class Seer : RoleBase<Seer>
         RoleId = roleId = RoleId.Seer;
         //以下いるもののみ変更
         OptionId = 320;
-        IsSHRRole = false;
+        IsSHRRole = true;
         OptionType = CustomOptionType.Crewmate;
     }
 
@@ -115,7 +115,6 @@ public class Seer : RoleBase<Seer>
     public static CustomOption SeerMode;
     public static CustomOption SeerLimitSoulDuration;
     public static CustomOption SeerSoulDuration;
-    //public static string[] SeerModeStrings = { "SeerModeBoth", "SeerModeFlash", "SeerModeSouls" };
 
     public override void SetupMyOptions()
     {

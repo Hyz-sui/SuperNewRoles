@@ -38,8 +38,8 @@ public class Seer : RoleBase<Seer>
             bool limitSoulDuration = false;
             float soulDuration = 0f;
 
-            DeadBodyPositions = deadBodyPositions;
-            deadBodyPositions = new List<Vector3>();
+            DeadBodyPositions = DeadBodyPositions_Replay;
+            DeadBodyPositions_Replay = new List<Vector3>();
             limitSoulDuration = SeerLimitSoulDuration.GetBool();
             soulDuration = SeerSoulDuration.GetFloat();
             if (mode is not 0 and not 2) return;
@@ -76,7 +76,7 @@ public class Seer : RoleBase<Seer>
     public override void HandleDisconnect(PlayerControl player, DisconnectReasons reason) { }
     public override void EndUseAbility() { }
     public override void ResetRole() { }
-    public override void PostInit() { deadBodyPositions = new(); }
+    public override void PostInit() { DeadBodyPositions_Replay = new(); }
     public override void UseAbility() { base.UseAbility(); AbilityLimit--; if (AbilityLimit <= 0) EndUseAbility(); }
     public override bool CanUseAbility() { return base.CanUseAbility() && AbilityLimit <= 0; }
 
@@ -98,12 +98,12 @@ public class Seer : RoleBase<Seer>
     // CustomOption End
 
     // RoleClass Start
-    public List<Vector3> deadBodyPositions
+    public List<Vector3> DeadBodyPositions_Replay
     {
-        get { return ReplayData.CanReplayCheckPlayerView ? GetValueVector3("_deadBodyPositions") : _deadBodyPositions; }
-        set { if (ReplayData.CanReplayCheckPlayerView) SetValueVector3("_deadBodyPositions", value); else _deadBodyPositions = value; }
+        get { return ReplayData.CanReplayCheckPlayerView ? GetValueVector3("_deadBodyPositions_Replay") : _deadBodyPositions_Replay; }
+        set { if (ReplayData.CanReplayCheckPlayerView) SetValueVector3("_deadBodyPositions_Replay", value); else _deadBodyPositions_Replay = value; }
     }
-    private List<Vector3> _deadBodyPositions;
+    private List<Vector3> _deadBodyPositions_Replay;
     public static int mode;
 
     public static Sprite GetSoulSprite() => ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.Soul.png", 500f);
@@ -182,28 +182,27 @@ public class Seer : RoleBase<Seer>
                 switch (role)
                 {
                     case RoleId.Seer:
-                        if (local.deadBodyPositions != null) local.deadBodyPositions.Add(target.transform.position);
+                        if (local.DeadBodyPositions_Replay != null) local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = mode <= 1;
                         break;
                     case RoleId.MadSeer:
-                        if (MadSeer.local.deadBodyPositions != null) MadSeer.local.deadBodyPositions.Add(target.transform.position);
+                        if (MadSeer.local.DeadBodyPositions_Replay != null) MadSeer.local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = MadSeer.mode <= 1;
                         break;
                     case RoleId.EvilSeer:
-                        if (EvilSeer.local.deadBodyPositions != null) EvilSeer.local.deadBodyPositions.Add(target.transform.position);
+                        if (EvilSeer.local.DeadBodyPositions_Replay != null) EvilSeer.local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = EvilSeer.mode <= 1;
                         break;
                     case RoleId.SeerFriends:
-                        if (SeerFriends.local.deadBodyPositions != null) SeerFriends.local.deadBodyPositions.Add(target.transform.position);
+                        if (SeerFriends.local.DeadBodyPositions_Replay != null) SeerFriends.local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = SeerFriends.mode <= 1;
                         break;
                     case RoleId.JackalSeer:
-                        if (JackalSeer.local.deadBodyPositions != null) JackalSeer.local.deadBodyPositions.Add(target.transform.position);
+                        if (JackalSeer.local.DeadBodyPositions_Replay != null) JackalSeer.local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = JackalSeer.mode <= 1;
                         break;
                     case RoleId.SidekickSeer:
-                        if (SidekickSeer.local.deadBodyPositions != null) SidekickSeer.local.deadBodyPositions.Add(target.transform.position);
-                        if (JackalSeer.local.deadBodyPositions != null) JackalSeer.local.deadBodyPositions.Add(target.transform.position);
+                        if (SidekickSeer.local.DeadBodyPositions_Replay != null) SidekickSeer.local.DeadBodyPositions_Replay.Add(target.transform.position);
                         ModeFlag = SidekickSeer.mode <= 1;
                         break;
                 }

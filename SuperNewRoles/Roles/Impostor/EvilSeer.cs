@@ -30,8 +30,8 @@ public class EvilSeer : RoleBase<EvilSeer>
         bool limitSoulDuration = false;
         float soulDuration = 0f;
 
-        DeadBodyPositions = deadBodyPositions;
-        deadBodyPositions = new List<Vector3>();
+        DeadBodyPositions = DeadBodyPositions_Replay;
+        DeadBodyPositions_Replay = new List<Vector3>();
         limitSoulDuration = EvilSeerLimitSoulDuration.GetBool();
         soulDuration = EvilSeerSoulDuration.GetFloat();
         if (mode is not 0 and not 2) return;
@@ -69,7 +69,7 @@ public class EvilSeer : RoleBase<EvilSeer>
     public override void ResetRole() { }
     public override void PostInit()
     {
-        deadBodyPositions = new();
+        DeadBodyPositions_Replay = new();
         IsCreateMadmate = EvilSeerMadmateSetting.GetBool();
     }
     public override void UseAbility() { base.UseAbility(); AbilityLimit--; if (AbilityLimit <= 0) EndUseAbility(); }
@@ -94,12 +94,12 @@ public class EvilSeer : RoleBase<EvilSeer>
     // CustomOption End
 
     // RoleClass Start
-    public List<Vector3> deadBodyPositions
+    public List<Vector3> DeadBodyPositions_Replay
     {
-        get { return ReplayData.CanReplayCheckPlayerView ? GetValueVector3("_deadBodyPositions") : _deadBodyPositions; }
-        set { if (ReplayData.CanReplayCheckPlayerView) SetValueVector3("_deadBodyPositions", value); else _deadBodyPositions = value; }
+        get { return ReplayData.CanReplayCheckPlayerView ? GetValueVector3("_deadBodyPositions_Replay") : _deadBodyPositions_Replay; }
+        set { if (ReplayData.CanReplayCheckPlayerView) SetValueVector3("_deadBodyPositions_Replay", value); else _deadBodyPositions_Replay = value; }
     }
-    private List<Vector3> _deadBodyPositions;
+    private List<Vector3> _deadBodyPositions_Replay;
     public static int mode;
     public bool IsCreateMadmate
     {

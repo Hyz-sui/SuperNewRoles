@@ -161,7 +161,8 @@ public static class RoleClass
         Demon.ClearAndReload();
         TaskManager.ClearAndReload();
         SeerFriends.Clear();
-        JackalSeer.ClearAndReload();
+        JackalSeer.Clear();
+        SidekickSeer.Clear();
         Assassin.ClearAndReload();
         Marlin.ClearAndReload();
         Arsonist.ClearAndReload();
@@ -1573,50 +1574,6 @@ public static class RoleClass
                 Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
                 Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
             }
-        }
-    }
-
-    public static class JackalSeer
-    {
-        public static List<PlayerControl> JackalSeerPlayer;
-        public static List<PlayerControl> SidekickSeerPlayer;
-        public static List<PlayerControl> FakeSidekickSeerPlayer;
-        public static List<int> CreatePlayers;
-        public static Color32 color = JackalBlue;
-
-        public static List<Vector3> deadBodyPositions;
-        public static float soulDuration;
-        public static bool limitSoulDuration;
-        public static int mode;
-
-        public static float KillCooldown;
-        public static bool IsUseVent;
-        public static bool IsUseSabo;
-        public static bool IsImpostorLight;
-        public static bool CreateSidekick;
-        public static bool CanCreateSidekick;
-        public static bool CanCreateFriend;
-        public static Sprite GetButtonSprite() => ModHelpers.LoadSpriteFromResources("SuperNewRoles.Resources.JackalSeerSidekickButton.png", 115f);
-
-        public static void ClearAndReload()
-        {
-            JackalSeerPlayer = new();
-            SidekickSeerPlayer = new();
-            FakeSidekickSeerPlayer = new();
-            CreatePlayers = new();
-
-            deadBodyPositions = new();
-            limitSoulDuration = CustomOptionHolder.JackalSeerLimitSoulDuration.GetBool();
-            soulDuration = CustomOptionHolder.JackalSeerSoulDuration.GetFloat();
-            mode = Mode.ModeHandler.IsMode(Mode.ModeId.SuperHostRoles) ? 1 : CustomOptionHolder.JackalSeerMode.GetSelection();
-
-            KillCooldown = CustomOptionHolder.JackalSeerKillCooldown.GetFloat();
-            IsUseVent = CustomOptionHolder.JackalSeerUseVent.GetBool();
-            IsUseSabo = CustomOptionHolder.JackalSeerUseSabo.GetBool();
-            IsImpostorLight = CustomOptionHolder.JackalSeerIsImpostorLight.GetBool();
-            CreateSidekick = CustomOptionHolder.JackalSeerCreateSidekick.GetBool();
-            CanCreateSidekick = CustomOptionHolder.JackalSeerCreateSidekick.GetBool();
-            CanCreateFriend = CustomOptionHolder.JackalSeerCreateFriend.GetBool();
         }
     }
     public static class Assassin

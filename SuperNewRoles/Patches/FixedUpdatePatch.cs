@@ -98,7 +98,7 @@ public class FixedUpdate
                 SetNameUpdate.Postfix(__instance);
                 NiceMechanic.FixedUpdate();
                 Jackal.JackalFixedPatch.Postfix(__instance, PlayerControl.LocalPlayer.GetRole());
-                JackalSeer.JackalSeerFixedPatch.Postfix(__instance, PlayerControl.LocalPlayer.GetRole());
+                //JackalSeer.Postfix(__instance, PlayerControl.LocalPlayer.GetRole());
                 Roles.Crewmate.Psychometrist.FixedUpdate();
                 Roles.Impostor.Matryoshka.FixedUpdate();
                 Roles.Neutral.PartTimer.FixedUpdate();
@@ -191,7 +191,7 @@ public class FixedUpdate
                             Roles.Neutral.Pavlovsdogs.OwnerFixedUpdate();
                             break;
                         case RoleId.WaveCannonJackal:
-                            JackalSeer.JackalSeerFixedPatch.JackalSeerPlayerOutLineTarget();
+                            JackalSeer.JackalSeerPlayerOutLineTarget();
                             break;
                         case RoleId.ConnectKiller:
                             Roles.Impostor.ConnectKiller.Update();

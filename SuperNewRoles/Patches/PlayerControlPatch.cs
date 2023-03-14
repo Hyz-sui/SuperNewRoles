@@ -675,12 +675,12 @@ static class CheckMurderPatch
                         }
                         break;
                     case RoleId.JackalSeer:
-                        if (!RoleClass.JackalSeer.CreatePlayers.Contains(__instance.PlayerId) && RoleClass.JackalSeer.CanCreateFriend)//まだ作ってなくて、設定が有効の時
+                        if (!JackalSeer.CreatePlayers.Contains(__instance.PlayerId) && JackalSeer.local.CanCreateFriend)//まだ作ってなくて、設定が有効の時
                         {
                             Logger.Info("未作成 且つ 設定が有効である為 フレンズを作成", "JackalSeerSHR");
-                            if (target == null || RoleClass.JackalSeer.CreatePlayers.Contains(__instance.PlayerId)) return false;
+                            if (target == null || JackalSeer.CreatePlayers.Contains(__instance.PlayerId)) return false;
                             __instance.RpcShowGuardEffect(target);
-                            RoleClass.JackalSeer.CreatePlayers.Add(__instance.PlayerId);
+                            JackalSeer.CreatePlayers.Add(__instance.PlayerId);
                             if (!target.IsImpostor())
                             {
                                 Jackal.CreateJackalFriends(target);//クルーにして フレンズにする
@@ -692,8 +692,8 @@ static class CheckMurderPatch
                         else
                         {
                             // キルができた理由のログを表示する(此処にMurderPlayerを使用すると2回キルされる為ログのみ表示)
-                            if (!RoleClass.JackalSeer.CanCreateFriend) Logger.Info("ジャッカルフレンズを作る設定ではない為 普通のキル", "JackalSeerSHR");
-                            else if (RoleClass.JackalSeer.CanCreateFriend && RoleClass.JackalSeer.CreatePlayers.Contains(__instance.PlayerId)) Logger.Info("ジャッカルフレンズ作成済みの為 普通のキル", "JackalSeerSHR");
+                            if (!JackalSeer.local.CanCreateFriend) Logger.Info("ジャッカルフレンズを作る設定ではない為 普通のキル", "JackalSeerSHR");
+                            else if (JackalSeer.local.CanCreateFriend && JackalSeer.CreatePlayers.Contains(__instance.PlayerId)) Logger.Info("ジャッカルフレンズ作成済みの為 普通のキル", "JackalSeerSHR");
                             else Logger.Info("不正なキル", "JackalSeerSHR");
                         }
                         break;
@@ -893,7 +893,7 @@ public static class MurderPlayerPatch
             target.protectedByGuardian = true;
             return false;
         }
-        if (target.IsRole(RoleId.WiseMan)  && WiseMan.WiseManData.ContainsKey(target.PlayerId) && WiseMan.WiseManData[target.PlayerId] is not null)
+        if (target.IsRole(RoleId.WiseMan) && WiseMan.WiseManData.ContainsKey(target.PlayerId) && WiseMan.WiseManData[target.PlayerId] is not null)
         {
             WiseMan.WiseManData[target.PlayerId] = null;
             PlayerControl targ = target;

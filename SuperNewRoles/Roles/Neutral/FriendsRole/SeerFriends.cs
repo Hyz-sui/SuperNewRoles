@@ -121,17 +121,17 @@ public class SeerFriends : RoleBase<SeerFriends>
         players = new();
         mode = ModeHandler.IsMode(ModeId.SuperHostRoles) ? 1 : SeerFriendsMode.GetSelection();
 
-            int Common = SeerFriendsCommonTask.GetInt();
-            int Long = SeerFriendsLongTask.GetInt();
-            int Short = SeerFriendsShortTask.GetInt();
-            int AllTask = Common + Long + Short;
-            if (AllTask == 0)
-            {
-                Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
-                Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
-                Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
-            }
-            JackalCheckTask = (int)(AllTask * (int.Parse(SeerFriendsCheckJackalTask.GetString().Replace("%", "")) / 100f));
+        int Common = SeerFriendsCommonTask.GetInt();
+        int Long = SeerFriendsLongTask.GetInt();
+        int Short = SeerFriendsShortTask.GetInt();
+        int AllTask = Common + Long + Short;
+        if (AllTask == 0)
+        {
+            Common = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumCommonTasks);
+            Long = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumLongTasks);
+            Short = GameOptionsManager.Instance.CurrentGameOptions.GetInt(Int32OptionNames.NumShortTasks);
+        }
+        JackalCheckTask = (int)(AllTask * (int.Parse(SeerFriendsCheckJackalTask.GetString().Replace("%", "")) / 100f));
     }
 
     // RoleClass End

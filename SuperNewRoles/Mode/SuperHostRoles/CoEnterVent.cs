@@ -33,7 +33,7 @@ class CoEnterVent
                 if (RoleClass.Jackal.IsUseVent) return true;
                 break;
             case RoleId.JackalSeer:
-                if (RoleClass.JackalSeer.IsUseVent) return true;
+                if (JackalSeer.CanUseVentS) return true;
                 break;
             case RoleId.MadMaker:
                 if (RoleClass.MadMaker.IsUseVent) return true;

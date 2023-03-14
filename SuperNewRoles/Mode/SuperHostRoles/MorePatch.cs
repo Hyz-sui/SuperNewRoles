@@ -1,5 +1,10 @@
 using HarmonyLib;
 using SuperNewRoles.Roles;
+using SuperNewRoles.Roles.Crewmate;
+using SuperNewRoles.Roles.Impostor;
+using SuperNewRoles.Roles.Impostor.MadRole;
+using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles.Mode.SuperHostRoles;
 
@@ -27,7 +32,7 @@ class MorePatch
                 || (!RoleClass.Minimalist.UseSabo && player.IsRole(RoleId.Minimalist))
                 || (!RoleClass.Samurai.UseSabo && player.IsRole(RoleId.Samurai))
                 || (!RoleClass.Egoist.UseSabo && player.IsRole(RoleId.Egoist))
-                || (!RoleClass.JackalSeer.IsUseSabo && player.IsRole(RoleId.JackalSeer))) return false;
+                || (!JackalSeer.CanUseSaboS && player.IsRole(RoleId.JackalSeer))) return false;
         }
         if (PlayerControl.LocalPlayer.IsUseVent() && RoleHelpers.IsComms())
         {

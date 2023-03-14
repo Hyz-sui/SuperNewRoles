@@ -37,24 +37,13 @@ public class Seer : RoleBase<Seer>
             List<Vector3> DeadBodyPositions = new();
             bool limitSoulDuration = false;
             float soulDuration = 0f;
-            switch (role)
-            {
-                case RoleId.Seer:
-                    DeadBodyPositions = deadBodyPositions;
-                    deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = SeerLimitSoulDuration.GetBool();
-                    soulDuration = SeerSoulDuration.GetFloat();
-                    if (mode is not 0 and not 2) return;
-                    break;
-                case RoleId.JackalSeer:
-                case RoleId.SidekickSeer:
-                    DeadBodyPositions = RoleClass.JackalSeer.deadBodyPositions;
-                    RoleClass.JackalSeer.deadBodyPositions = new List<Vector3>();
-                    limitSoulDuration = RoleClass.JackalSeer.limitSoulDuration;
-                    soulDuration = RoleClass.JackalSeer.soulDuration;
-                    if (RoleClass.JackalSeer.mode is not 0 and not 2) return;
-                    break;
-            }
+
+            DeadBodyPositions = deadBodyPositions;
+            deadBodyPositions = new List<Vector3>();
+            limitSoulDuration = SeerLimitSoulDuration.GetBool();
+            soulDuration = SeerSoulDuration.GetFloat();
+            if (mode is not 0 and not 2) return;
+
             foreach (Vector3 pos in DeadBodyPositions)
             {
                 GameObject soul = new();
@@ -209,9 +198,13 @@ public class Seer : RoleBase<Seer>
                         ModeFlag = SeerFriends.mode <= 1;
                         break;
                     case RoleId.JackalSeer:
+                        if (JackalSeer.local.deadBodyPositions != null) JackalSeer.local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = JackalSeer.mode <= 1;
+                        break;
                     case RoleId.SidekickSeer:
-                        if (RoleClass.JackalSeer.deadBodyPositions != null) RoleClass.JackalSeer.deadBodyPositions.Add(target.transform.position);
-                        ModeFlag = RoleClass.JackalSeer.mode <= 1;
+                        if (SidekickSeer.local.deadBodyPositions != null) SidekickSeer.local.deadBodyPositions.Add(target.transform.position);
+                        if (JackalSeer.local.deadBodyPositions != null) JackalSeer.local.deadBodyPositions.Add(target.transform.position);
+                        ModeFlag = SidekickSeer.mode <= 1;
                         break;
                 }
                 if (PlayerControl.LocalPlayer.IsAlive() && CachedPlayer.LocalPlayer.PlayerId != target.PlayerId && ModeFlag)
@@ -227,7 +220,7 @@ public class Seer : RoleBase<Seer>
                     MadSeer.allPlayers,
                     EvilSeer.allPlayers,
                     SeerFriends.allPlayers,
-                    RoleClass.JackalSeer.JackalSeerPlayer,
+                    JackalSeer.allPlayers,
                 };
             foreach (var p in seers)
             {

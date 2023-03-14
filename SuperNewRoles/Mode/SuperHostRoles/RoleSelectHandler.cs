@@ -33,7 +33,7 @@ public static class RoleSelectHandler
             int impostor = GameManager.Instance.LogicOptions.currentGameOptions.NumImpostors;
             int crewmate = 0;
             //ジャッカルがいるなら
-            if (CustomOptionHolder.JackalOption.GetSelection() != 0 || CustomOptionHolder.JackalSeerOption.GetSelection() != 0)
+            if (CustomOptionHolder.JackalOption.GetSelection() != 0 || JackalSeer.RoleOption.GetSelection() != 0)
             {
                 for (int i = 0; i < (GameManager.Instance.LogicOptions.currentGameOptions.NumImpostors + 2); i++)
                 {
@@ -109,7 +109,7 @@ public static class RoleSelectHandler
         SetRoleDesync(RoleClass.Truelover.trueloverPlayer, RoleTypes.Impostor);
         SetRoleDesync(RoleClass.FalseCharges.FalseChargesPlayer, RoleTypes.Impostor);
         SetRoleDesync(RoleClass.MadMaker.MadMakerPlayer, RoleTypes.Impostor);
-        SetRoleDesync(RoleClass.JackalSeer.JackalSeerPlayer, RoleTypes.Impostor);
+        SetRoleDesync(JackalSeer.allPlayers, RoleTypes.Impostor);
         /*============インポスターにDesync============*/
 
 

@@ -1006,7 +1006,7 @@ class AllRoleSetClass
             RoleId.Demon => CustomOptionHolder.DemonPlayerCount.GetFloat(),
             RoleId.TaskManager => CustomOptionHolder.TaskManagerPlayerCount.GetFloat(),
             RoleId.SeerFriends => SeerFriends.PlayerCountOption.GetFloat(),
-            RoleId.JackalSeer => CustomOptionHolder.JackalSeerPlayerCount.GetFloat(),
+            RoleId.JackalSeer => JackalSeer.PlayerCountOption.GetFloat(),
             RoleId.Assassin => CustomOptionHolder.AssassinPlayerCount.GetFloat(),
             RoleId.Marlin => CustomOptionHolder.MarlinPlayerCount.GetFloat(),
             RoleId.Arsonist => CustomOptionHolder.ArsonistPlayerCount.GetFloat(),

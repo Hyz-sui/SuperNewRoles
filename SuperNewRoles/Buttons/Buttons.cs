@@ -40,7 +40,6 @@ static class HudManagerStartPatch
     public static CustomButton HawkHawkEyeButton;
     public static CustomButton JackalKillButton;
     public static CustomButton JackalSidekickButton;
-    public static CustomButton JackalSeerSidekickButton;
     public static CustomButton MagazinerAddButton;
     public static CustomButton MagazinerGetButton;
     public static CustomButton trueloverLoveButton;
@@ -1255,61 +1254,7 @@ static class HudManagerStartPatch
             showButtonText = true
         };
 
-        JackalSeerSidekickButton = new(
-            () =>
-            {
-                var target = PlayerControlFixedUpdatePatch.JackalSetTarget();
-                if (target && RoleHelpers.IsAlive(PlayerControl.LocalPlayer) && PlayerControl.LocalPlayer.CanMove && RoleClass.JackalSeer.CanCreateSidekick)
-                {
-                    if (target.IsRole(RoleId.SideKiller)) // サイドキック相手がマッドキラーの場合
-                    {
-                        if (!RoleClass.SideKiller.IsUpMadKiller) // サイドキラーが未昇格の場合
-                        {
-                            var sidePlayer = RoleClass.SideKiller.GetSidePlayer(target); // targetのサイドキラーを取得
-                            if (sidePlayer != null) // null(作っていない)ならば処理しない
-                            {
-                                sidePlayer.RPCSetRoleUnchecked(RoleTypes.Impostor);
-                                RoleClass.SideKiller.IsUpMadKiller = true;
-                            }
-                        }
-                    }
-                    if (RoleClass.JackalSeer.CanCreateFriend)
-                    {
-                        Jackal.CreateJackalFriends(target); //クルーにして フレンズにする
-                    }
-                    else
-                    {
-                        bool IsFakeSidekickSeer = EvilEraser.IsBlockAndTryUse(EvilEraser.BlockTypes.JackalSeerSidekick, target);
-                        MessageWriter killWriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.CreateSidekickSeer, SendOption.Reliable, -1);
-                        killWriter.Write(target.PlayerId);
-                        killWriter.Write(IsFakeSidekickSeer);
-                        AmongUsClient.Instance.FinishRpcImmediately(killWriter);
-                        RPCProcedure.CreateSidekickSeer(target.PlayerId, IsFakeSidekickSeer);
-                    }
-                    RoleClass.JackalSeer.CanCreateSidekick = false;
-                }
-            },
-            (bool isAlive, RoleId role) => { return isAlive && role == RoleId.JackalSeer && ModeHandler.IsMode(ModeId.Default) && RoleClass.JackalSeer.CanCreateSidekick; },
-            () =>
-            {
-                return PlayerControlFixedUpdatePatch.JackalSetTarget() && PlayerControl.LocalPlayer.CanMove;
-            },
-            () =>
-            {
-                if (PlayerControl.LocalPlayer.IsRole(RoleId.JackalSeer)) { JackalSeer.EndMeeting(); }
-            },
-            RoleClass.Jackal.GetButtonSprite(),
-            new Vector3(-2f, 1, 0),
-            __instance,
-            __instance.AbilityButton,
-            KeyCode.F,
-            49,
-            () => { return false; }
-        )
-        {
-            buttonText = ModTranslation.GetString("JackalCreateSidekickButtonName"),
-            showButtonText = true
-        };
+        JackalSeer.MakeButtons(__instance);
 
         JackalKillButton = new(
             () =>
@@ -1323,7 +1268,7 @@ static class HudManagerStartPatch
                             Jackal.ResetCooldown();
                             break;
                         case RoleId.JackalSeer:
-                            JackalSeer.ResetCooldown();
+                            JackalSeer.ResetKillCooldown();
                             break;
                         case RoleId.TeleportingJackal:
                             TeleportingJackal.ResetCooldowns();
@@ -1342,7 +1287,7 @@ static class HudManagerStartPatch
             () =>
             {
                 if (PlayerControl.LocalPlayer.IsRole(RoleId.Jackal)) { Jackal.EndMeeting(); }
-                else if (PlayerControl.LocalPlayer.IsRole(RoleId.JackalSeer)) { JackalSeer.EndMeeting(); }
+                else if (PlayerControl.LocalPlayer.IsRole(RoleId.JackalSeer)) { JackalSeer.ResetKillCooldown(); }
                 else if (PlayerControl.LocalPlayer.IsRole(RoleId.WaveCannonJackal)) { WaveCannonJackal.ResetCooldowns(); }
             },
             __instance.KillButton.graphic.sprite,

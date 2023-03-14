@@ -1,5 +1,10 @@
 using HarmonyLib;
 using SuperNewRoles.Roles;
+using SuperNewRoles.Roles.Crewmate;
+using SuperNewRoles.Roles.Impostor;
+using SuperNewRoles.Roles.Impostor.MadRole;
+using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 
 namespace SuperNewRoles.Patches.Harmony;
 
@@ -10,6 +15,6 @@ class ExilerController_WrapUp
     {
         var MyRole = PlayerControl.LocalPlayer.GetRole();
         Jackal.JackalFixedPatch.Postfix(__instance, MyRole);
-        JackalSeer.JackalSeerFixedPatch.Postfix(__instance, MyRole);
+        JackalSeer.Postfix(__instance, MyRole);
     }
 }

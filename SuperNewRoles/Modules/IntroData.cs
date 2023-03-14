@@ -199,8 +199,8 @@ public class IntroData
     public static IntroData DemonIntro = new("Demon", RoleClass.Demon.color, 1, RoleId.Demon, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData TaskManagerIntro = new("TaskManager", RoleClass.TaskManager.color, 1, RoleId.TaskManager);
     public static IntroData SeerFriendsIntro = new("SeerFriends", SeerFriends.color, 1, RoleId.SeerFriends);
-    public static IntroData JackalSeerIntro = new("JackalSeer", RoleClass.JackalSeer.color, 1, RoleId.JackalSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
-    public static IntroData SidekickSeerIntro = new("SidekickSeer", RoleClass.JackalSeer.color, 1, RoleId.SidekickSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
+    public static IntroData JackalSeerIntro = new("JackalSeer", JackalSeer.color, 1, RoleId.JackalSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
+    public static IntroData SidekickSeerIntro = new("SidekickSeer", JackalSeer.color, 1, RoleId.SidekickSeer, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData AssassinIntro = new("Assassin", RoleClass.Assassin.color, 1, RoleId.Assassin, IntroSound: RoleTypes.Shapeshifter);
     public static IntroData MarlinIntro = new("Marlin", RoleClass.Marlin.color, 1, RoleId.Marlin);
     public static IntroData ArsonistIntro = new("Arsonist", RoleClass.Arsonist.color, 1, RoleId.Arsonist, TeamRoleType.Neutral, IntroSound: RoleTypes.Shapeshifter);

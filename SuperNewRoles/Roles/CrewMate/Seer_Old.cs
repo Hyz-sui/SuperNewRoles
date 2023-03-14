@@ -185,7 +185,7 @@ public static class WrapUpPatch
                     RoleClass.Seer.SeerPlayer,
                     RoleClass.EvilSeer.EvilSeerPlayer,
                     RoleClass.MadSeer.MadSeerPlayer,
-                    RoleClass.JackalSeer.JackalSeerPlayer,
+                    JackalSeer.allPlayers,
                     RoleClass.SeerFriends.SeerFriendsPlayer
                 };
             foreach (var p in seers)

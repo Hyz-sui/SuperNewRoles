@@ -1,7 +1,13 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using SuperNewRoles.Roles;
+using SuperNewRoles.Roles.Crewmate;
+using SuperNewRoles.Roles.Impostor;
+using SuperNewRoles.Roles.Impostor.MadRole;
+using SuperNewRoles.Roles.Neutral;
+using SuperNewRoles.Roles.Neutral.FriendRoles;
 using HarmonyLib;
+using System.Linq;
 using Hazel;
 using UnityEngine;
 
@@ -179,7 +185,7 @@ class Guesser
             CreateRole(roleInfo);
         }
         if (CustomOptionHolder.JackalOption.GetSelection() is not 0 && CustomOptionHolder.JackalCreateSidekick.GetBool()) CreateRole(IntroData.SidekickIntro);
-        if (CustomOptionHolder.JackalSeerOption.GetSelection() is not 0 && CustomOptionHolder.JackalSeerCreateSidekick.GetBool()) CreateRole(IntroData.SidekickSeerIntro);
+        if (JackalSeer.RoleOption.GetSelection() is not 0 && JackalSeer.JackalSeerCreateSidekick.GetBool()) CreateRole(IntroData.SidekickSeerIntro);
         if (CustomOptionHolder.PavlovsownerOption.GetSelection() is not 0) CreateRole(IntroData.PavlovsdogsIntro);
         if (CustomOptionHolder.RevolutionistAndDictatorOption.GetSelection() is not 0) { CreateRole(IntroData.DictatorIntro); CreateRole(IntroData.RevolutionistIntro); }
         if (CustomOptionHolder.AssassinAndMarlinOption.GetSelection() is not 0) { CreateRole(IntroData.AssassinIntro); CreateRole(IntroData.MarlinIntro); }

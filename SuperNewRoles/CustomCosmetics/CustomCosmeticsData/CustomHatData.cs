@@ -40,8 +40,7 @@ public class CustomHatData : HatData
         }
     }
     static Dictionary<string, HatViewData> cache = new();
-    public 
-    static HatViewData getbycache(string id)
+    public static HatViewData getbycache(string id)
     {
         if (!cache.ContainsKey(id) || cache[id] == null)
         {

@@ -343,11 +343,11 @@ public class CustomHats
             if (extend.IsNull) return;
             if (extend.FlipImage != null)
             {
-                hp.FrontLayer.sprite = __instance.Rend().flipX ? extend.FlipImage : hp.Hat.CreateAddressableAsset().GetAsset().MainImage;
+                hp.FrontLayer.sprite = __instance.Rend().flipX ? extend.FlipImage : CustomCosmeticsData.CustomHatData.getbycache(hp.Hat.ProdId).MainImage;
             }
             if (extend.BackFlipImage != null)
             {
-                hp.BackLayer.sprite = __instance.Rend().flipX ? extend.BackFlipImage : hp.Hat.CreateAddressableAsset().GetAsset().BackImage;
+                hp.BackLayer.sprite = __instance.Rend().flipX ? extend.BackFlipImage : CustomCosmeticsData.CustomHatData.getbycache(hp.Hat.ProdId).BackImage;
             }
         }
     }

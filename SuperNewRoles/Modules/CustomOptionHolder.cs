@@ -1106,6 +1106,12 @@ public class CustomOptionHolder
         VampireDependentsKillCoolTime = Create(200906, false, CustomOptionType.Impostor, "VampireDependentsKillCoolTime", 30f, 2.5f, 120f, 2.5f, VampireCanCreateDependents);
         VampireDependentsCanVent = Create(200907, false, CustomOptionType.Impostor, "VampireDependentsCanVent", true, VampireCanCreateDependents);
 
+        EvilNekomataOption = SetupCustomRoleOption(201500, true, RoleId.EvilNekomata);
+        EvilNekomataPlayerCount = Create(201501, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], EvilNekomataOption);
+        EvilNekomataNotImpostorExiled = Create(201502, true, CustomOptionType.Impostor, "NotImpostorExiled", false, EvilNekomataOption);
+
+        NekoKabocha.SetupCustomOptions();
+
         KunoichiOption = SetupCustomRoleOption(201000, false, RoleId.Kunoichi);
         KunoichiPlayerCount = Create(201001, false, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], KunoichiOption);
         KunoichiCoolTime = Create(201002, false, CustomOptionType.Impostor, "KunoichiCoolTime", 2.5f, 0f, 15f, 0.5f, KunoichiOption);
@@ -1114,6 +1120,10 @@ public class CustomOptionHolder
         KunoichiIsWaitAndPressTheButtonToHide = Create(201005, false, CustomOptionType.Impostor, "KunoichiIsWaitAndPressTheButtonToHide", true, KunoichiIsHide);
         KunoichiHideTime = Create(201006, false, CustomOptionType.Impostor, "KunoichiHideTime", 3f, 0.5f, 10f, 0.5f, KunoichiIsHide);
         KunoichiHideKunai = Create(201007, false, CustomOptionType.Impostor, "KunoichiHideKunai", false, KunoichiIsHide);
+
+        NunOption = SetupCustomRoleOption(201601, false, RoleId.Nun);
+        NunPlayerCount = Create(201602, false, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], NunOption);
+        NunCoolTime = Create(201603, false, CustomOptionType.Impostor, "NiceScientistCooldownSetting", 20f, 2.5f, 60f, 2.5f, NunOption);
 
         SerialKillerOption = SetupCustomRoleOption(201100, true, RoleId.SerialKiller);
         SerialKillerPlayerCount = Create(201101, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], SerialKillerOption);
@@ -1124,6 +1134,8 @@ public class CustomOptionHolder
         FastMakerOption = SetupCustomRoleOption(201200, true, RoleId.FastMaker);
         FastMakerPlayerCount = Create(201201, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], FastMakerOption);
 
+        ShiftActor.SetupCustomOptions();
+
         SuicideWisherOption = SetupCustomRoleOption(201300, true, RoleId.SuicideWisher);
         SuicideWisherPlayerCount = Create(201301, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], SuicideWisherOption);
 
@@ -1132,19 +1144,9 @@ public class CustomOptionHolder
         SelfBomberScope = Create(201402, true, CustomOptionType.Impostor, "SelfBomberScopeSetting", 1f, 0.5f, 3f, 0.5f, SelfBomberOption);
         SelfBomberBombCoolTime = Create(201403, true, CustomOptionType.Impostor, "SelfBomberBombCoolTimeSettting", 10f, 2.5f, 90f, 2.5f, SelfBomberOption);
 
-        EvilNekomataOption = SetupCustomRoleOption(201500, true, RoleId.EvilNekomata);
-        EvilNekomataPlayerCount = Create(201501, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], EvilNekomataOption);
-        EvilNekomataNotImpostorExiled = Create(201502, true, CustomOptionType.Impostor, "NotImpostorExiled", false, EvilNekomataOption);
-
         FinderOption = SetupCustomRoleOption(201700, true, RoleId.Finder);
         FinderPlayerCount = Create(201701, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], FinderOption);
         FinderCheckMadmateSetting = Create(201702, true, CustomOptionType.Impostor, "FinderCheckMadmateSetting", 3f, 1f, 15f, 1f, FinderOption);
-
-        NunOption = SetupCustomRoleOption(201601, false, RoleId.Nun);
-        NunPlayerCount = Create(201602, false, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], NunOption);
-        NunCoolTime = Create(201603, false, CustomOptionType.Impostor, "NiceScientistCooldownSetting", 20f, 2.5f, 60f, 2.5f, NunOption);
-
-        ShiftActor.SetupCustomOptions();
 
         EvilSeerOption = SetupCustomRoleOption(201900, true, RoleId.EvilSeer);
         EvilSeerPlayerCount = Create(201901, true, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], EvilSeerOption);
@@ -1190,8 +1192,6 @@ public class CustomOptionHolder
 
         PursuerOption = SetupCustomRoleOption(202500, false, RoleId.Pursuer);
         PursuerPlayerCount = Create(202501, false, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], PursuerOption);
-
-        NekoKabocha.SetupCustomOptions();
 
         CrackerOption = SetupCustomRoleOption(202600, false, RoleId.Cracker);
         CrackerPlayerCount = Create(202601, false, CustomOptionType.Impostor, "SettingPlayerCountName", ImpostorPlayers[0], ImpostorPlayers[1], ImpostorPlayers[2], ImpostorPlayers[3], CrackerOption);
